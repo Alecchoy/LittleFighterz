@@ -119,7 +119,7 @@ window.addEventListener('DOMContentLoaded', () =>{
     //
     //
     //
-    class Fighter extends Sprite{
+    class Fighter {
         constructor({position, velocity, color = 'red', offset}){
             this.position = position
             this.velocity = velocity
@@ -141,10 +141,8 @@ window.addEventListener('DOMContentLoaded', () =>{
             this.isAttacking
             this.health = 100
             this.isDashing
-            
 
         }
-
        
 
         draw(){
