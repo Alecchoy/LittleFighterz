@@ -40,72 +40,77 @@ window.addEventListener('DOMContentLoaded', () =>{
         y:2
     })
 
-    
-
-
-
-    
     class Sprite {
-        constructor({position, velocity, color = 'red', offset}){
+        constructor({position, imageSrc, scale = 1, framesMax = 1 }){
             this.position = position
-            this.velocity = velocity
-            this.color = color
             this.width = 50
             this.height = 100
-            this.lastKey
-
-            this.attackBox = {
-                position: {
-                    x: this.position.x,
-                    y: this.position.y
-                },
-                offset: offset,
-                width: 100,
-                height: 40
-                
-            }
-            this.isAttacking
-            this.health = 100
-
-         
-
-            // this.shootBox = {
-            //     position: {
-            //         x: this.position.x,
-            //         y: this.position.y
-            //     },
-            //     velocity: 50,
-            //     offset: offset,
-            //     width: 100,
-            //     height: 40
-            // }
-            // this.isShooting
+            this.image = new Image()
+            this.image.src = imageSrc
+            this.scale = scale
+            this.framesMax = framesMax
+            this.framesCurrent = 0
+            this.framesElapsed = 0
+            this.framesHold = 1
+    
         }
        
 
         draw(){
-            ctx.fillStyle = this.color
-            ctx.fillRect(this.position.x, this.position.y, this.width, this.height)
-            //attack box is drawn
-            
-        
-            // if(this.isShooting){
-            //     ctx.fillStyle = "#B883E7"
-            //         ctx.fillRect(this.shootBox.position.x + this.shootBox.velocity, this.shootBox.position.y, this.shootBox.width, this.shootBox.height)
-            // }
-
-
+            ctx.drawImage(
+                this.image, 
+                this.framesCurrent * (this.image.width/ this.framesMax),
+                0,
+                this.image.width / this.framesMax, 
+                this.image.height,
+                this.position.x, 
+                this.position.y,
+                (this.image.width / this.framesMax) * this.scale, 
+                this.image.height * this.scale
+                )
         }
 
-        
-        
         update(){
             this.draw()
+            if(this.framesElapsed % this.framesHold === 0) {
+                if(this.framesCurrent < this.framesMax){
+                    this.framesCurrent ++
+                } else {
+                    this.framesCurrent = 0
+                }
 
-            // this.shootBox.position.x = this.position.x - this.shootBox.offset.x
-            // this.shootBox.position.y = this.position.y
-            // this.position.x += this.velocity.x
-            // else this.velocity.y += gravity
+            }
+        }
+
+    }
+    
+    
+    
+
+    
+    class Background {
+        constructor({position, imageSrc, scale = 1 }){
+            this.position = position
+            this.width = 50
+            this.height = 100
+            this.image = new Image()
+            this.image.src = imageSrc
+            this.scale = scale
+    
+        }
+       
+
+        draw(){
+            ctx.drawImage(this.image, 
+                this.position.x, 
+                this.position.y,
+                this.image.width * this.scale, 
+                this.image.height * this.scale,
+            )
+        }
+
+        update(){
+            this.draw()
         }
 
     }
@@ -114,7 +119,7 @@ window.addEventListener('DOMContentLoaded', () =>{
     //
     //
     //
-    class Fighter {
+    class Fighter extends Sprite{
         constructor({position, velocity, color = 'red', offset}){
             this.position = position
             this.velocity = velocity
@@ -135,8 +140,11 @@ window.addEventListener('DOMContentLoaded', () =>{
             }
             this.isAttacking
             this.health = 100
+            this.isDashing
+            
 
         }
+
        
 
         draw(){
@@ -171,6 +179,10 @@ window.addEventListener('DOMContentLoaded', () =>{
             },300)
         }
 
+        dash(){
+            this.isDashing = true 
+        }
+
         // dashAttack(){
         //     this.isAttacking = true
         //     setTimeout(() =>{
@@ -188,14 +200,17 @@ window.addEventListener('DOMContentLoaded', () =>{
         constructor({position, velocity, color , offset}){
             this.position = position
             this.velocity = velocity
-            this.color = '#0060FF'
-            this.width = 100
-            this.height = 30
+            this.color = '#939393'
+            this.width = 70
+            this.height = 20
 
         }
        
 
         draw(){
+            ctx.fillStyle = this.color
+            ctx.fillRect(this.position.x, this.position.y, this.width, this.height)
+
             ctx.fillStyle = this.color
             ctx.fillRect(this.position.x, this.position.y, this.width, this.height)
 
@@ -212,9 +227,186 @@ window.addEventListener('DOMContentLoaded', () =>{
         
     }
 
+    class MovingBackgrounds {
+        constructor({position, velocity,imageSrc, scale = 1 }){
+            this.position = position
+            this.velocity = velocity
+            this.width = 50
+            this.height = 100
+            this.image = new Image()
+            this.image.src = imageSrc
+            this.scale = scale
+
+        }
+       
+
+        draw(){
+            ctx.drawImage(this.image, 
+                this.position.x, 
+                this.position.y,
+                this.image.width * this.scale, 
+                this.image.height * this.scale 
+            )
+
+        }
+        
+        update(){
+            this.draw()
+            this.position.x += this.velocity.x
+            this.position.y += this.velocity.y
+            if(this.position.x < -1000){
+                this.position.x = 800
+            }
+        }
+
+
+
+        
+    }
+
+
 
 
   
+
+    const boaBg = new Sprite({
+        position: {
+            x: 200,
+            y: 260
+        },
+        imageSrc: './img/one_piece_sprites/boafinal.png',
+        scale: 1.5,
+        framesMax: 5
+
+    
+    })
+
+    const background = new Background({
+        position: {
+            x: 0,
+            y: 0
+        },
+        imageSrc: './img/game_background_1/layers/sky.png',
+        scale: .325
+    })
+    const background2 = new Background({
+        position: {
+            x: 600,
+            y: 0
+        },
+        imageSrc: './img/game_background_1/layers/sky.png',
+        scale: .325
+    })
+
+    const background3 = new Background({
+        position: {
+            x: 900,
+            y: 0
+        },
+        imageSrc: './img/game_background_1/layers/sky.png',
+        scale: .325
+    })
+    const cloud1 = new Background({
+        position: {
+            x: 0,
+            y: 0
+        },
+        imageSrc: './img/game_background_1/layers/clouds_1.png',
+        scale: 1
+    })
+    const rock1 = new Background({
+        position: {
+            x: 0,
+            y: -380
+        },
+        imageSrc: './img/game_background_1/layers/rocks_1.png',
+        scale: 1
+    })
+    const cloud2 = new MovingBackgrounds({
+        position: {
+            x: 800,
+            y: 0
+        },
+        velocity:{
+            x: -.3,
+            y: 0
+        },
+        imageSrc: './img/game_background_1/layers/clouds_2.png',
+        scale: .5
+
+    })
+
+    const cloud3 = new MovingBackgrounds({
+        position: {
+            x: 700,
+            y: 0
+        },
+        velocity:{
+            x: -.9,
+            y: 0
+        },
+        imageSrc: './img/game_background_1/layers/clouds_3.png',
+        scale: .5
+
+    })
+    const cloud4 = new MovingBackgrounds({
+        position: {
+            x: 50,
+            y: -120
+        },
+        velocity:{
+            x: -.8,
+            y: 0
+        },
+        imageSrc: './img/game_background_1/layers/clouds_3.png',
+        scale: .6
+
+    })
+
+    const cloud5 = new MovingBackgrounds({
+        position: {
+            x: 50,
+            y: -100
+        },
+        velocity:{
+            x: -.9,
+            y: 0
+        },
+        imageSrc: 'img/game_background_1/layers/clouds_4.png',
+        scale: .6
+
+    })
+    const cloud6 = new MovingBackgrounds({
+        position: {
+            x: -150,
+            y: 10
+        },
+        velocity:{
+            x: -1.3,
+            y: 0
+        },
+        imageSrc: 'img/game_background_1/layers/clouds_4.png',
+        scale: .6
+
+    })
+    const cloud7 = new MovingBackgrounds({
+        position: {
+            x: 1600,
+            y: 0
+        },
+        velocity:{
+            x: -.3,
+            y: 0
+        },
+        imageSrc: './img/game_background_1/layers/clouds_2.png',
+        scale: .5
+
+    })
+
+    
+
+
+
 
     
     
@@ -367,6 +559,7 @@ window.addEventListener('DOMContentLoaded', () =>{
         ctx.fillRect(0,0, canvas.width, canvas.height)
         ctx.fillStyle = "#5D8C92";
         ctx.fillRect(0, 350, canvas.width, 325);
+        rock1.update();
         ctx.fillStyle = "#916C18";
         ctx.fillRect(0, 370, canvas.width, 20);
         ctx.fillStyle = "#694A04";
@@ -381,14 +574,29 @@ window.addEventListener('DOMContentLoaded', () =>{
         ctx.fillRect(0, 620, canvas.width, 2);
         ctx.fillStyle = "#F8D586";
         ctx.fillRect(0, 635, canvas.width, .6);
+        
         ctx.fillStyle = "#694A04";
         ctx.fillRect(0, 650, canvas.width, 2);
-
- 
+        
+        
+        background.update();
+        background2.update();
+        background3.update();
+        cloud5.update();
+        cloud2.update();
+        cloud4.update();
+        cloud1.update();
         // shoot.update()
-        player.update()
-        enemy.update()
+        cloud3.update();
+        cloud6.update();
+        cloud7.update();
 
+        boaBg.update();
+
+
+        player.update();
+        enemy.update()
+        
         player.velocity.x = 0
         player.velocity.y = 0
 
@@ -413,7 +621,7 @@ window.addEventListener('DOMContentLoaded', () =>{
                         rectangle1: shoot,
                         rectangle2: enemy 
                     })){
-                    enemy.health -= 2
+                    enemy.health -= .25
                     document.querySelector('#enemyHealth').style.width = enemy.health + '%'
                    
                 }
@@ -433,19 +641,21 @@ window.addEventListener('DOMContentLoaded', () =>{
         
         
         if(keys.d.pressed && lastKey === 'd'){
-            player.velocity.x = 10
+            player.velocity.x = 5
         } else if (keys.a.pressed && lastKey === 'a'){
-            player.velocity.x = -10
+            player.velocity.x = -5
         } else if (keys.s.pressed && lastKey === 's'){
             player.velocity.y = 13
         } else if (keys.w.pressed && lastKey === 'w'){
             player.velocity.y = -13
         }
 
+
+
         if (keys.ArrowRight.pressed && enemy.lastKey === "ArrowRight"){
-            enemy.velocity.x = 10
+            enemy.velocity.x = 5
         } else if (keys.ArrowLeft.pressed && enemy.lastKey === "ArrowLeft"){
-            enemy.velocity.x = -10
+            enemy.velocity.x = -5
         } else if (keys.ArrowDown.pressed && enemy.lastKey === "ArrowDown"){
             enemy.velocity.y = 13
         } else if (keys.ArrowUp.pressed && enemy.lastKey === "ArrowUp"){
@@ -472,7 +682,7 @@ window.addEventListener('DOMContentLoaded', () =>{
                 rectangle2: player 
             }) && enemy.isAttacking){
             enemy.isAttacking = false
-            player.health -= 10
+            player.health -= 4
             document.querySelector('#playerHealth').style.width = player.health + '%'
            
         }
@@ -485,8 +695,21 @@ window.addEventListener('DOMContentLoaded', () =>{
 
     animate()
     movableArea.draw();
-
+    let keysPressed = {}
     window.addEventListener('keydown', (event) =>{
+
+
+        if ( event.key == 'f') {
+            player.position.x = enemy.position.x + 200;
+            player.position.y = enemy.position.y + 50;
+        } 
+        if (event.key == ','){
+            enemy.position.x = player.position.x - 200;
+            enemy.position.y = player.position.y + 50
+        }
+        if (keysPressed['a'] && event.key == 'f') {
+            player.velocity.x = -40;
+        }
         switch( event.key){
             case 'd':
                 keys.d.pressed = true
@@ -516,7 +739,8 @@ window.addEventListener('DOMContentLoaded', () =>{
         }
         switch( event.key){
             case 'f':
-                player.velocity.y = -20
+                kplayer.position.x = enemy.position.x + 200;
+                player.position.y = enemy.position.y + 50;
             break
         }
         switch( event.key){
@@ -530,7 +754,7 @@ window.addEventListener('DOMContentLoaded', () =>{
                 shoots.push( new Projectile({
                     position: {
                         x: player.position.x,
-                        y: player.position.y
+                        y: player.position.y + 80
                     },
                     velocity: {
                         x: 0,
