@@ -13,8 +13,8 @@ window.addEventListener('DOMContentLoaded', () =>{
     const ctx = canvas.getContext('2d');
 
     
-    canvas.width = innerWidth - 50
-    canvas.height = innerHeight - 40
+    canvas.width = innerWidth - 50;
+    canvas.height = innerHeight - 40;
     
     ctx.fillStyle = "#288BA8";
     ctx.fillRect(0,0, canvas.width, canvas.height);
@@ -39,9 +39,36 @@ window.addEventListener('DOMContentLoaded', () =>{
         x:288,
         y:2
     })
+    
+        
+        class Background {
+            constructor({position, imageSrc, scale = 1 }){
+                this.position = position
+                this.width = 50
+                this.height = 100
+                this.image = new Image()
+                this.image.src = imageSrc
+                this.scale = scale
+        
+            }
+           
+    
+            draw(){
+                ctx.drawImage(this.image, 
+                    this.position.x, 
+                    this.position.y,
+                    this.image.width * this.scale, 
+                    this.image.height * this.scale
+                )
+            }
+    
+            update(){
+                this.draw()
+            }
+        }
 
     class Sprite {
-        constructor({position, imageSrc, scale = 1, framesMax = 1 }){
+        constructor({position, imageSrc, scale = 1, framesMax = 1, offset = { x: 0, y: 0 }  }){
             this.position = position
             this.width = 50
             this.height = 100
@@ -51,7 +78,8 @@ window.addEventListener('DOMContentLoaded', () =>{
             this.framesMax = framesMax
             this.framesCurrent = 0
             this.framesElapsed = 0
-            this.framesHold = 1
+            this.framesHold = 5
+            this.offset = offset
     
         }
        
@@ -63,71 +91,70 @@ window.addEventListener('DOMContentLoaded', () =>{
                 0,
                 this.image.width / this.framesMax, 
                 this.image.height,
-                this.position.x, 
-                this.position.y,
+                this.position.x - this.offset.x, 
+                this.position.y - this.offset.y,
                 (this.image.width / this.framesMax) * this.scale, 
                 this.image.height * this.scale
                 )
         }
 
-        update(){
-            this.draw()
-            if(this.framesElapsed % this.framesHold === 0) {
-                if(this.framesCurrent < this.framesMax){
-                    this.framesCurrent ++
-                } else {
-                    this.framesCurrent = 0
+        animateFrames(){
+
+            this.framesElapsed++
+                if(this.framesElapsed % this.framesHold === 0) {
+                    if(this.framesCurrent < this.framesMax - 1){
+                        this.framesCurrent++
+                    } else {
+                        this.framesCurrent = 0
+                    }
+    
                 }
-
-            }
         }
-
-    }
-    
-    
-    
-
-    
-    class Background {
-        constructor({position, imageSrc, scale = 1 }){
-            this.position = position
-            this.width = 50
-            this.height = 100
-            this.image = new Image()
-            this.image.src = imageSrc
-            this.scale = scale
-    
-        }
-       
-
-        draw(){
-            ctx.drawImage(this.image, 
-                this.position.x, 
-                this.position.y,
-                this.image.width * this.scale, 
-                this.image.height * this.scale,
-            )
-        }
+        
 
         update(){
             this.draw()
+            this.animateFrames()
+
         }
 
     }
+    
+    
+    
 
 
     //
     //
     //
-    class Fighter {
-        constructor({position, velocity, color = 'red', offset}){
-            this.position = position
+    class Fighter extends Sprite {
+        constructor({
+            position, 
+            velocity, 
+            color = 'red',  
+            imageSrc, 
+            scale = 1, 
+            framesMax = 1,
+            offset = { x: 0, y: 0},
+            sprites
+            
+
+        }){
+            super({
+                position,
+                imageSrc,
+                scale,
+                framesMax,
+                offset
+            })
             this.velocity = velocity
             this.color = color
             this.width = 50
             this.height = 100
             this.lastKey
-
+            this.framesCurrent = 0
+            this.framesElapsed = 0
+            this.framesHold = 7
             this.attackBox = {
                 position: {
                     x: this.position.x,
@@ -141,44 +168,95 @@ window.addEventListener('DOMContentLoaded', () =>{
             this.isAttacking
             this.health = 100
             this.isDashing
+            this.sprites = sprites
 
-        }
-       
-
-        draw(){
-            ctx.fillStyle = this.color
-            ctx.fillRect(this.position.x, this.position.y, this.width, this.height)
-            //attack box is drawn
+            for( const sprite in this.sprites){
+                sprites[sprite].image = new Image()
+                sprites[sprite].image.src = sprites[sprite].imageSrc
+            }
             
-            if(this.isAttacking) {
-                ctx.fillStyle = "#B883E7"
-                ctx.fillRect(this.attackBox.position.x, this.attackBox.position.y, this.attackBox.width, this.attackBox.height)
-            } 
-       
+            console.log(this.sprites)
 
         }
         
+       
+
+        // draw(){
+        //     ctx.fillStyle = this.color
+        //     ctx.fillRect(this.position.x, this.position.y, this.width, this.height)
+        //     //attack box is drawn
+            
+        //     if(this.isAttacking) {
+        //         ctx.fillStyle = "#B883E7"
+        //         ctx.fillRect(this.attackBox.position.x, this.attackBox.position.y, this.attackBox.width, this.attackBox.height)
+        //     } 
+       
+
+        // }
+        
+        
         update(){
             this.draw()
+            this.animateFrames()
             this.attackBox.position.x = this.position.x - this.attackBox.offset.x
             this.attackBox.position.y = this.position.y
-
+            // ctx.fillRect(this.attackBox.position.x, this.attackBox.position.y, this.attackBox.width, this.attackBox.height)
             this.position.x += this.velocity.x
             this.position.y += this.velocity.y
-            if(this.position.y + this.height + this.velocity.y >= canvas.height){
-                this.velocity.y = 0
-            }
+            // if(this.position.y + this.height + this.velocity.y >= canvas.height){
+            //     this.velocity.y = 0
+            // }
         }
 
         attack(){
+            this.switchSprite('attack1')
             this.isAttacking = true
             setTimeout(() =>{
                 this.isAttacking = false 
-            },300)
+            },3000)
+
+        }
+        shooting(){
+            this.switchSprite('attack1')
+            this.isShooting = true
+            setTimeout(() =>{
+                this.isAttacking = false 
+            },3000)
         }
 
         dash(){
             this.isDashing = true 
+        }
+
+        switchSprite(sprite){
+            if( this.image === this.sprites.attack1.image && this.framesCurrent < this.sprites.attack1.framesMax - 1) return
+            switch (sprite) {
+                case 'idle':
+                    if(this.image !== this.sprites.idle.image){
+                        this.image = this.sprites.idle.image
+                        this.framesMax = this.sprites.idle.framesMax
+                        this.framesCurrent = 0
+                        
+                    }
+                break
+                case 'run':
+                    if(this.image !== this.sprites.run.image){
+                        this.image = this.sprites.run.image
+                        this.framesMax = this.sprites.run.framesMax
+                        this.framesCurrent = 0
+
+                    }
+                break
+                case 'attack1':
+                    if(this.image !== this.sprites.attack1.image){
+                        this.image = this.sprites.attack1.image
+                        this.framesMax = this.sprites.attack1.framesMax
+                        this.framesCurrent = 0
+
+                    }
+                break
+
+            }
         }
 
         // dashAttack(){
@@ -274,7 +352,7 @@ window.addEventListener('DOMContentLoaded', () =>{
         },
         imageSrc: './img/one_piece_sprites/boafinal.png',
         scale: 1.5,
-        framesMax: 5
+        framesMax: 5.07
 
     
     })
@@ -389,15 +467,17 @@ window.addEventListener('DOMContentLoaded', () =>{
     })
     const cloud7 = new MovingBackgrounds({
         position: {
-            x: 1600,
-            y: 0
+            x: 800,
+            y: -200
         },
         velocity:{
-            x: -.3,
+            x: -1.5,
+            // x: -.3,
             y: 0
         },
         imageSrc: './img/game_background_1/layers/clouds_2.png',
-        scale: .5
+        // scale: .5,
+        scale: .9
 
     })
 
@@ -420,8 +500,31 @@ window.addEventListener('DOMContentLoaded', () =>{
         offset: {
             x: 0,
             y: 0
+        },
+        framesMax: 4,
+        scale: 1.5,
+        offset: {
+            x: 0,
+            y: 0
+        },
+        sprites: {
+            idle: {
+                imageSrc: './img/one_piece_sprites/ussop_idle.png',
+                // scale:2,
+                framesMax: 4
+            },
+            run: {
+                imageSrc: './img/one_piece_sprites/ussop_run.png',
+                framesMax: 8,
+            },
+            attack1: {
+                imageSrc: './img/one_piece_sprites/ussop_attack.png',
+                framesMax: 6
+            }
+
         }
-        
+        // scale: 2.5,
+     
         
     })
     const shoot = new Projectile({
@@ -441,7 +544,7 @@ window.addEventListener('DOMContentLoaded', () =>{
 
     const shoots = []
 
-    player.draw();
+    // player.draw();
     
     const enemy = new Fighter({
         position: {
@@ -456,6 +559,28 @@ window.addEventListener('DOMContentLoaded', () =>{
         offset: {
             x: 30,
             y: 0
+
+        },
+        framesMax: 4,
+        scale: 1.5,
+        offset: {
+            x: 0,
+            y: 0
+        },
+        sprites: {
+            idle: {
+                imageSrc: './img/one_piece_sprites/luffy-flipped (5) (1).png',
+                // scale:2,
+                framesMax: 6,
+            },
+            run: {
+                imageSrc: './img/one_piece_sprites/luffy_flipped_run.png',
+                framesMax: 8,
+            },
+            attack1: {
+                imageSrc: './img/one_piece_sprites/luffy_flipped_attack1.png',
+                framesMax: 5
+            }
 
         }
         
@@ -583,17 +708,17 @@ window.addEventListener('DOMContentLoaded', () =>{
         cloud5.update();
         cloud2.update();
         cloud4.update();
+        cloud7.update();
         cloud1.update();
         // shoot.update()
         cloud3.update();
         cloud6.update();
-        cloud7.update();
 
         boaBg.update();
 
 
         player.update();
-        enemy.update()
+        enemy.update();
         
         player.velocity.x = 0
         player.velocity.y = 0
@@ -636,28 +761,40 @@ window.addEventListener('DOMContentLoaded', () =>{
         //     shoot.position.x = player.position.x
         //     shoot.velocity.x = 0;
         // }
-        
-        
+        // player.switchSprite('idle')
+        // player.image = player.sprites.idle.image
         if(keys.d.pressed && lastKey === 'd'){
             player.velocity.x = 5
+            player.switchSprite('run')
         } else if (keys.a.pressed && lastKey === 'a'){
             player.velocity.x = -5
+            player.switchSprite('run')
         } else if (keys.s.pressed && lastKey === 's'){
             player.velocity.y = 13
+            player.switchSprite('run')
         } else if (keys.w.pressed && lastKey === 'w'){
             player.velocity.y = -13
+            player.switchSprite('run')
+        } else {
+            player.switchSprite('idle')
         }
 
 
 
         if (keys.ArrowRight.pressed && enemy.lastKey === "ArrowRight"){
             enemy.velocity.x = 5
+            enemy.switchSprite('run')
         } else if (keys.ArrowLeft.pressed && enemy.lastKey === "ArrowLeft"){
             enemy.velocity.x = -5
+            enemy.switchSprite('run')
         } else if (keys.ArrowDown.pressed && enemy.lastKey === "ArrowDown"){
             enemy.velocity.y = 13
+            enemy.switchSprite('run')
         } else if (keys.ArrowUp.pressed && enemy.lastKey === "ArrowUp"){
             enemy.velocity.y = -13
+            enemy.switchSprite('run')
+        } else {
+            enemy.switchSprite('idle')
         }
 
         
@@ -737,7 +874,7 @@ window.addEventListener('DOMContentLoaded', () =>{
         }
         switch( event.key){
             case 'f':
-                kplayer.position.x = enemy.position.x + 200;
+                player.position.x = enemy.position.x + 200;
                 player.position.y = enemy.position.y + 50;
             break
         }
