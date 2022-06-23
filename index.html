@@ -19,7 +19,7 @@
   </head>
 
   <body>
-      <div id="start-page" class="screen">
+      <div id="start-page">
           <!-- <embed  id="audio1" src="/music/One Piece OST - The Very Very Very Strongest [extended].mp3" type="" style="display: hidden"> -->
             <img src="/img/one_piece_sprites/title3.png" alt="">
             <!-- <h1 id="op_little_fighterz">OP Little Fighterz</h1> -->
@@ -28,11 +28,43 @@
             
             <button id="instructions-button" style="width: 30%" class="btn btn-5">INSTRUCTIONS</button>
             
-            <!-- <audio id="audio1" hidden controls: 'controls' autoplay   > 
-                <source src="/music/One Piece OST - The Very Very Very Strongest [extended].mp3" type="audio/mp3">
-              </audio>
-              <button onclick="toggleMute()">Mute/Unmute</button>
-               -->
+            <audio id="audio1" hidden autoplay> 
+                <source src="/music/One Piece  Movie 9 OST   Daiabare! Zoro & Franky Extended (1).mp3" type="audio/mp3">
+            </audio>
+            <button id='audio-button' onclick="toggleMute()">Mute/Unmute</button>
+            <script>
+                 function toggleMute() {
+                var myAudio = document.getElementById('audio1');
+                myAudio.muted = !myAudio.muted;
+     }
+
+            </script>
+              <a id="github" href="https://github.com/Alecchoy/LittleFighterz" target=">blank">
+                <img src="img/one_piece_sprites/github-logo.png" alt="git-hub-link" style="position: absolute; top: 10; right: 15; left: 0; bottom: 0; height:80px; padding-right: 20px;">
+            </a>
+              
+        </div>
+
+        <div id="instructions" style="display: none">
+            <h2>How to Play</h2>
+            <h3>Welcome to One Piece Little Fighters</h3>
+            <div id="player-controls">
+                <ul>Player 1 Controllers
+                    <li>Please use 'W', 'A', 'S', 'D' to move up, down, left, right</li>
+                    <li>'F' is teleport</li>
+                    <li>'G' is basic attack</li>
+               
+                </ul>
+            
+                <ul >Player 2 Controllers
+                    <li>Please use 'Up', 'Down', 'Left', 'Right' to move up, down, left, right</li>
+                    <li>',' is teleport</li>
+                    <li>'.' is basic attack</li>
+              
+                </ul>
+            </div>
+            <!-- <button id="exit">BUTTOn</button> -->
+
         </div>
     
 
@@ -41,9 +73,9 @@
         <!-- smaller container -->
           <div style="position: absolute; display: flex; width:100%; align-items: center; padding: 20px;">
             <!-- player heatlh -->
-            <div style="position: relative; height: 30px; width: 100%; display: flex; justify-content: flex-end;">
+            <div style="position: relative; height: 30px; width: 100%; display: flex; justify-content: flex-end; ">
                 <div 
-                    style="background-color: yellow; height: 30px; width: 100%;"
+                    style="background-color: yellow; height: 30px; width: 100%; border-radius: 20px"
                 ></div>
                 <div
                     id="playerHealth" 
@@ -52,7 +84,8 @@
                     top:0; 
                     bottom: 0; 
                     width: 100%;
-                    right: 0">
+                    right: 0; border-radius: 20px;
+                    border-style: solid; border-color: rgb(255, 255, 255);">
                 </div>
                 </div>
             <!-- timer -->
@@ -60,7 +93,7 @@
             <!-- enemy health -->
             <div style="position: relative; height: 30px; width: 100%">
                 <div 
-                    style="background-color: yellow; height: 30px;"
+                    style="background-color: yellow; height: 30px; border-radius: 20px;"
                 ></div>
                 <div
                     id="enemyHealth" 
@@ -69,21 +102,30 @@
                     top:0; 
                     bottom: 0; 
                     left: 0; 
-                    right: 0">
+                    right: 0; border-radius: 20px; border-style: solid; border-color: rgb(255, 255, 255);">
                 </div>
                 </div>
             </div>
             <div >
-                <div id= "displayText" style="position:fixed; font-family: Raleway; font-size: 50px; color:white; align-items: center; justify-content: center; top: 0; right:0; bottom: 550px; left: 0; display: none;">Tie
-                <button>Replay</button>
+                <div id= "displayText" style="position:fixed; font-family: Raleway; font-size: 50px; color:white; align-items: relative; justify-content: center; top: 0; right:0; bottom: 550px; left: 0; display: none;">
+                <p>Tie</p>  
+                <button id="replay-button">Replay</button>
                 </div>
             </div>
         
-        <canvas id="game-canvas" height="576" width="1024" display="none"></canvas>
+        <canvas id="game-canvas" height="576" width="1024" display="none">
+            
+        </canvas>
         </div>
       <!-- <script src="src/index.js"></script> -->
 
-  </body>
+    </body>
+    <!-- <footer>
+          <a id="github" href="https://github.com/Alecchoy/LittleFighterz" target=">blank">
+              <img src="img/one_piece_sprites/github-logo.png" alt="git-hub-link">
+          </a>
+      
+    </footer> -->
 
 </html>
 

@@ -28,29 +28,64 @@ document.addEventListener('DOMContentLoaded', () =>{
     canvas.height = 576;
 
     // myAudio = document.getElementById("audio1");
-    function toggleMute() {
-        var myAudio = document.getElementById('audio_playo24');
-        myAudio.muted = !myAudio.muted;
-     }
- 
+    
     
     ctx.fillStyle = "#288BA8";
     ctx.fillRect(0,0, canvas.width, canvas.height);
-
-
+    
+    let muted = false;
     const button = document.getElementById('start-button');
-    console.log('button')
+    const instructions = document.getElementById("instructions-button");
+    const replayButton = document.getElementById("replay-button");
+    const audioButton = document.getElementById("audio-button");
+    instructions.addEventListener('click', (event) =>{
+        document.getElementById('instructions').style.display = 'flex';
+    })
+    // console.log('button')
     button.addEventListener('click', (event) =>{
-        const startPage = document.getElementById('start-page')
-        document.getElementById('game-canvas').display = 'flex';
+        const startPage = document.getElementById('start-page');
+        // const instructions = document.getElementById('instructions');
+        document.getElementById('game-canvas').style.display = 'flex';
+        document.getElementById('instructions').style.display = 'none';
+        // instructions.style.display = 'none';
         startPage.style.display = 'none';
         timer = 60;
         player.position.x = 50;
         player.position.y = 330;
         enemy.position.x = 924,
         enemy.position.y = 330;
+        
+        // const instructions = document.getElementById('instructions')
+        // document.getElementById('game-canvas').display = 'flex';
+        
         // console.log('evnts')
     })
+    
+    function toggleMute() {
+        var myAudio = document.getElementById('audio1');
+        myAudio.muted == !myAudio.muted;
+     }
+    replayButton.addEventListener('click', () =>{
+        window.location.reload();
+
+    })
+    audioButton.addEventListener('click', () =>{
+        toggleMute();
+    })
+    // button.addEventListener('click', (event) =>{
+        
+    //     // document.getElementById('game-canvas').display = 'flex';
+    //     instructions.style.display = 'flex';
+        
+    //     // console.log('evnts')
+    // })
+    // button.addEventListener('click', (event) =>{
+    //     const instructions = document.getElementById('exit')
+    //     // document.getElementById('game-canvas').display = 'flex';
+    //     instructions.style.display = 'none';
+        
+    //     // console.log('evnts')
+    // })
     // const gravity = .2
 
     ctx.fillStyle = "black";
@@ -117,7 +152,7 @@ document.addEventListener('DOMContentLoaded', () =>{
        
 
         draw(){
-            ctx.fillRect(this.position.x, this.position.y, this.width, this.height)
+            // ctx.fillRect(this.position.x, this.position.y, this.width, this.height)
             ctx.drawImage(
                 this.image, 
                 this.framesCurrent * (this.image.width/ this.framesMax),
@@ -248,20 +283,20 @@ document.addEventListener('DOMContentLoaded', () =>{
             this.animateFrames()
             this.position.x += this.velocity.x
             this.position.y += this.velocity.y
-            if(this.isAttacking){
+            // if(this.isAttacking){
                 this.attackBox.position.x = this.position.x + this.attackBox.offset.x
                 this.attackBox.position.y = this.position.y + this.attackBox.offset.y
-                 ctx.fillRect(this.attackBox.position.x, this.attackBox.position.y, this.attackBox.width, this.attackBox.height)
-            }
+                //  ctx.fillRect(this.attackBox.position.x, this.attackBox.position.y, this.attackBox.width, this.attackBox.height)
+            // }
             // ctx.fillRect(this.attackBox.position.x, this.attackBox.position.y, this.attackBox.width, this.attackBox.height)
             if(this.position.y + this.height + this.velocity.y >= canvas.height){
                 this.velocity.y = 0
             }
-            if(this.isAttacking2){
+            // if(this.isAttacking2){
                 this.attackBox2.position.x = this.position.x + this.attackBox2.offset.x
                 this.attackBox2.position.y = this.position.y + this.attackBox2.offset.y
-                 ctx.fillRect(this.attackBox2.position.x, this.attackBox2.position.y, this.attackBox2.width, this.attackBox2.height)
-            }
+                //  ctx.fillRect(this.attackBox2.position.x, this.attackBox2.position.y, this.attackBox2.width, this.attackBox2.height)
+            // }
         }
 
         attack(){
@@ -748,7 +783,7 @@ document.addEventListener('DOMContentLoaded', () =>{
 
     enemy.draw();
     
-    console.log(player);
+    // console.log(player);
 
     const keys ={
         a: {
@@ -832,12 +867,15 @@ document.addEventListener('DOMContentLoaded', () =>{
         clearTimeout(timerId)
         document.querySelector('#displayText').style.display = "flex"
         if(player.health === enemy.health){
-            document.querySelector('#displayText').innerHTML = 'TIE GAME'
-            console.log('tie')
+            document.querySelector('#displayText p').innerHTML = 'TIE GAME'
+            // document.getElementById('displayText').style.display = 'flex'
+            // console.log('tie')
         } else if(player.health > enemy.health){
-            document.querySelector('#displayText').innerHTML = "Player 1 Wins!"
+            document.querySelector('#displayText p').innerHTML = "Player 1 Wins!"
+            // document.getElementById('displayText').style.display = 'flex'
         } else if(enemy.health > player.health){
-            document.querySelector('#displayText').innerHTML = "Player 2 Wins!"
+            document.querySelector('#displayText p').innerHTML = "Player 2 Wins!"
+            // document.getElementById('displayText').style.display = 'flex'
         } 
 
     }
@@ -877,19 +915,19 @@ document.addEventListener('DOMContentLoaded', () =>{
         ctx.fillRect(0, 350, canvas.width, 325);
         rock1.update();
         ctx.fillStyle = "#916C18";
-        ctx.fillRect(0, 370, canvas.width, 20);
-        ctx.fillStyle = "#694A04";
-        ctx.fillRect(0, 370, canvas.width, 2);
-        ctx.fillStyle = "#F8D586";
-        ctx.fillRect(0, 380, canvas.width, .4);
-        ctx.fillStyle = "#694A04" ;
-        ctx.fillRect(0, 390, canvas.width, 2);
-        ctx.fillStyle = "#916C18";
-        ctx.fillRect(0, 620, canvas.width, 30);
-        ctx.fillStyle = "#694A04";
-        ctx.fillRect(0, 620, canvas.width, 2);
-        ctx.fillStyle = "#F8D586";
-        ctx.fillRect(0, 635, canvas.width, .6);
+        // ctx.fillRect(0, 370, canvas.width, 20);
+        // ctx.fillStyle = "#694A04";
+        // ctx.fillRect(0, 370, canvas.width, 2);
+        // ctx.fillStyle = "#F8D586";
+        // ctx.fillRect(0, 380, canvas.width, .4);
+        // ctx.fillStyle = "#694A04" ;
+        // ctx.fillRect(0, 390, canvas.width, 2);
+        // ctx.fillStyle = "#916C18";
+        // ctx.fillRect(0, 620, canvas.width, 30);
+        // ctx.fillStyle = "#694A04";
+        // ctx.fillRect(0, 620, canvas.width, 2);
+        // ctx.fillStyle = "#F8D586";
+        // ctx.fillRect(0, 635, canvas.width, .6);
         
         ctx.fillStyle = "#694A04";
         ctx.fillRect(0, 650, canvas.width, 2);
@@ -1203,7 +1241,7 @@ document.addEventListener('DOMContentLoaded', () =>{
             break
         }
 
-        console.log(event.key)
+        // console.log(event.key)
     })
 
 
@@ -1246,7 +1284,7 @@ document.addEventListener('DOMContentLoaded', () =>{
         }
 
 
-        console.log(event.key)
+        // console.log(event.key)
     })
 
    
