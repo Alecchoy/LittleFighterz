@@ -7,18 +7,50 @@ const { setTimeout } = require("core-js");
 
 // func();
 
-window.addEventListener('DOMContentLoaded', () =>{
+// const startButton = document.getElementById('start-button')
+
+document.addEventListener('DOMContentLoaded', () =>{
+    
 
     const canvas = document.getElementById('game-canvas');
     const ctx = canvas.getContext('2d');
-
+   
+    // const startPage = document.getElementById('start-page')
+    //     startPage.style.display = 'none';
+    //     timer = 60;
+    //     player.position.x = 50;
+    //     player.position.y = 330;
+    //     enemy.position.x = 924,
+    //     enemy.position.y = 330;
+    //     console.log('evnts')
     
-    canvas.width = innerWidth - 50;
-    canvas.height = innerHeight - 40;
+    canvas.width = 1024;
+    canvas.height = 576;
+
+    // myAudio = document.getElementById("audio1");
+    function toggleMute() {
+        var myAudio = document.getElementById('audio_playo24');
+        myAudio.muted = !myAudio.muted;
+     }
+ 
     
     ctx.fillStyle = "#288BA8";
     ctx.fillRect(0,0, canvas.width, canvas.height);
 
+
+    const button = document.getElementById('start-button');
+    console.log('button')
+    button.addEventListener('click', (event) =>{
+        const startPage = document.getElementById('start-page')
+        document.getElementById('game-canvas').display = 'flex';
+        startPage.style.display = 'none';
+        timer = 60;
+        player.position.x = 50;
+        player.position.y = 330;
+        enemy.position.x = 924,
+        enemy.position.y = 330;
+        // console.log('evnts')
+    })
     // const gravity = .2
 
     ctx.fillStyle = "black";
@@ -85,6 +117,7 @@ window.addEventListener('DOMContentLoaded', () =>{
        
 
         draw(){
+            ctx.fillRect(this.position.x, this.position.y, this.width, this.height)
             ctx.drawImage(
                 this.image, 
                 this.framesCurrent * (this.image.width/ this.framesMax),
@@ -136,7 +169,9 @@ window.addEventListener('DOMContentLoaded', () =>{
             scale = 1, 
             framesMax = 1,
             offset = { x: 0, y: 0},
-            sprites
+            sprites,
+            attackBox = { offset: {}, width: undefined, height: undefined},
+            attackBox2 = { offset: {}, width: undefined, height: undefined}
             
 
         }){
@@ -145,7 +180,7 @@ window.addEventListener('DOMContentLoaded', () =>{
                 imageSrc,
                 scale,
                 framesMax,
-                offset
+                offset,
             })
             this.velocity = velocity
             this.color = color
@@ -160,22 +195,35 @@ window.addEventListener('DOMContentLoaded', () =>{
                     x: this.position.x,
                     y: this.position.y
                 },
-                offset: offset,
-                width: 200,
-                height: 70
+                offset: attackBox.offset,
+                width: attackBox.width,
+                height: attackBox.height
+                //add
+                
+            }
+            this.attackBox2 = {
+                position: {
+                    x: this.position.x,
+                    y: this.position.y
+                },
+                offset: attackBox2.offset,
+                width: attackBox2.width,
+                height: attackBox2.height
+                //add
                 
             }
             this.isAttacking
+            this.isAttacking2
             this.health = 100
             this.isDashing
             this.sprites = sprites
+            this.facingRight = true
 
             for( const sprite in this.sprites){
                 sprites[sprite].image = new Image()
                 sprites[sprite].image.src = sprites[sprite].imageSrc
             }
             
-            console.log(this.sprites)
 
         }
         
@@ -198,14 +246,22 @@ window.addEventListener('DOMContentLoaded', () =>{
         update(){
             this.draw()
             this.animateFrames()
-            this.attackBox.position.x = this.position.x - this.attackBox.offset.x
-            this.attackBox.position.y = this.position.y
-            // ctx.fillRect(this.attackBox.position.x, this.attackBox.position.y, this.attackBox.width, this.attackBox.height)
             this.position.x += this.velocity.x
             this.position.y += this.velocity.y
-            // if(this.position.y + this.height + this.velocity.y >= canvas.height){
-            //     this.velocity.y = 0
-            // }
+            if(this.isAttacking){
+                this.attackBox.position.x = this.position.x + this.attackBox.offset.x
+                this.attackBox.position.y = this.position.y + this.attackBox.offset.y
+                 ctx.fillRect(this.attackBox.position.x, this.attackBox.position.y, this.attackBox.width, this.attackBox.height)
+            }
+            // ctx.fillRect(this.attackBox.position.x, this.attackBox.position.y, this.attackBox.width, this.attackBox.height)
+            if(this.position.y + this.height + this.velocity.y >= canvas.height){
+                this.velocity.y = 0
+            }
+            if(this.isAttacking2){
+                this.attackBox2.position.x = this.position.x + this.attackBox2.offset.x
+                this.attackBox2.position.y = this.position.y + this.attackBox2.offset.y
+                 ctx.fillRect(this.attackBox2.position.x, this.attackBox2.position.y, this.attackBox2.width, this.attackBox2.height)
+            }
         }
 
         attack(){
@@ -214,6 +270,16 @@ window.addEventListener('DOMContentLoaded', () =>{
             setTimeout(() =>{
                 this.isAttacking = false 
             },3000)
+
+
+        }
+        attack2(){
+            this.switchSprite('attack2')
+            this.isAttacking2 = true
+            setTimeout(() =>{
+                this.isAttacking2 = false 
+            },3000)
+
 
         }
         shooting(){
@@ -229,7 +295,8 @@ window.addEventListener('DOMContentLoaded', () =>{
         }
 
         switchSprite(sprite){
-            if( this.image === this.sprites.attack1.image && this.framesCurrent < this.sprites.attack1.framesMax - 1) return
+            if( (this.image === this.sprites.attack1.image && this.framesCurrent < this.sprites.attack1.framesMax - 1)) return
+            if( (this.image === this.sprites.attack2.image && this.framesCurrent < this.sprites.attack2.framesMax - 1)) return
             switch (sprite) {
                 case 'idle':
                     if(this.image !== this.sprites.idle.image){
@@ -251,6 +318,38 @@ window.addEventListener('DOMContentLoaded', () =>{
                     if(this.image !== this.sprites.attack1.image){
                         this.image = this.sprites.attack1.image
                         this.framesMax = this.sprites.attack1.framesMax
+                        this.framesCurrent = 0
+
+                    }
+                break
+                case 'idle2':
+                    if(this.image !== this.sprites.idle2.image){
+                        this.image = this.sprites.idle2.image
+                        this.framesMax = this.sprites.idle2.framesMax
+                        this.framesCurrent = 0
+                        
+                    }
+                break
+                case 'run2':
+                    if(this.image !== this.sprites.run2.image && this.facingRight === false){
+                        this.image = this.sprites.run2.image
+                        this.framesMax = this.sprites.run2.framesMax
+                        this.framesCurrent = 0
+
+                    }
+                break
+                case 'attack2':
+                    if(this.image !== this.sprites.attack2.image){
+                        this.image = this.sprites.attack2.image
+                        this.framesMax = this.sprites.attack2.framesMax
+                        this.framesCurrent = 0
+
+                    }
+                break
+                case 'takehit':
+                    if(this.image !== this.sprites.attack2.image){
+                        this.image = this.sprites.attack2.image
+                        this.framesMax = this.sprites.attack2.framesMax
                         this.framesCurrent = 0
 
                     }
@@ -490,7 +589,7 @@ window.addEventListener('DOMContentLoaded', () =>{
     
     const player = new Fighter({
         position: {
-            x: 50,
+            x: 0,
             y: 330
         },
         velocity: {
@@ -504,28 +603,59 @@ window.addEventListener('DOMContentLoaded', () =>{
         framesMax: 4,
         scale: 1.5,
         offset: {
-            x: 0,
+            x: 10,
             y: 0
         },
         sprites: {
             idle: {
-                imageSrc: './img/one_piece_sprites/ussop_idle.png',
+                imageSrc: './img/one_piece_sprites/zoro_idle.png',
                 // scale:2,
                 framesMax: 4
             },
             run: {
-                imageSrc: './img/one_piece_sprites/ussop_run.png',
-                framesMax: 8,
+                imageSrc: './img/one_piece_sprites/zoro_run.png',
+                framesMax: 8.1,
             },
             attack1: {
-                imageSrc: './img/one_piece_sprites/ussop_attack.png',
-                framesMax: 6
+                imageSrc: './img/one_piece_sprites/zoro_atk1.png',
+                scale: 4,
+                framesMax: 4
+            },
+            idle2: {
+                imageSrc: './img/one_piece_sprites/zoro_flipped_idle.png',
+                // scale:2,
+                framesMax: 4
+            },
+            run2: {
+                imageSrc: './img/one_piece_sprites/zoro_flipped_run.png',
+                framesMax: 8,
+            },
+            attack2: {
+                imageSrc: './img/one_piece_sprites/zoro_flipped_atk1.png',
+                framesMax: 4,
+               
             }
 
-        }
+        },
+        attackBox: {
+            offset: {
+                x: 30,
+                y: 20
+            },
+            width: 100,
+            height: 50
+        },
+        attackBox2: {
+            offset: {
+                x: -30,
+                y: 5
+            },
+            width: 100,
+            height: 50
+        },
+        
         // scale: 2.5,
      
-        
     })
     const shoot = new Projectile({
         position: {
@@ -557,32 +687,62 @@ window.addEventListener('DOMContentLoaded', () =>{
         },
         color: 'green',
         offset: {
-            x: 30,
+            x: 0,
             y: 0
 
         },
-        framesMax: 4,
+        // framesMax: 4,
         scale: 1.5,
         offset: {
-            x: 0,
+            x: 5,
             y: 0
         },
         sprites: {
             idle: {
-                imageSrc: './img/one_piece_sprites/luffy-flipped (5) (1).png',
+                imageSrc: './img/one_piece_sprites/luffy_idle.png',
                 // scale:2,
-                framesMax: 6,
+                framesMax: 3,
             },
             run: {
-                imageSrc: './img/one_piece_sprites/luffy_flipped_run.png',
+                imageSrc: './img/one_piece_sprites/luffy_run.png',
                 framesMax: 8,
             },
             attack1: {
-                imageSrc: './img/one_piece_sprites/luffy_flipped_attack1.png',
-                framesMax: 5
+                imageSrc: './img/one_piece_sprites/luffy_gattling.png',
+                framesMax: 4
+            },
+            idle2: {
+                imageSrc: './img/one_piece_sprites/luffy_flipped_idle.png',
+                // scale:2,
+                framesMax: 3
+            },
+            run2: {
+                imageSrc: './img/one_piece_sprites/luffy_flipped_run.png',
+                framesMax: 8,
+            },
+            attack2: {
+                imageSrc: './img/one_piece_sprites/luffy_gattling_flipped.png',
+                framesMax: 4
             }
 
+        },
+        attackBox: {
+            offset: {
+                x: 0,
+                y: 0
+            },
+            width: 140,
+            height: 50
+        },
+        attackBox2: {
+            offset: {
+                x: -40,
+                y: 30
+            },
+            width: 100,
+            height: 50
         }
+        
         
     })
 
@@ -625,6 +785,20 @@ window.addEventListener('DOMContentLoaded', () =>{
             pressed: false 
         }
     }
+    function flipHorizontally(img,x,y){
+        // move to x + img's width
+        ctx.translate(x+img.width,y);
+    
+        // scaleX by -1; this "trick" flips horizontally
+        ctx.scale(-1,1);
+        
+        // draw the img
+        // no need for x,y since we've already translated
+        ctx.drawImage(img,0,0);
+        
+        // always clean up -- reset transformations to default
+        ctx.setTransform(1,0,0,1,0,0);
+    }
 
     let lastKey
 
@@ -634,6 +808,14 @@ window.addEventListener('DOMContentLoaded', () =>{
         rectangle1.attackBox.position.x <= rectangle2.position.x + rectangle2.width && 
         rectangle1.attackBox.position.y + rectangle1.attackBox.height >= rectangle2.position.y && 
         rectangle1.attackBox.position.y <= rectangle2.position.y + rectangle2.height
+        )
+    }
+    function rectangularCollision2({rectangle1, rectangle2}){
+        return (
+        rectangle1.attackBox2.position.x + rectangle1.attackBox2.width >= rectangle2.position.x && 
+        rectangle1.attackBox2.position.x <= rectangle2.position.x + rectangle2.width && 
+        rectangle1.attackBox2.position.y + rectangle1.attackBox2.height >= rectangle2.position.y && 
+        rectangle1.attackBox2.position.y <= rectangle2.position.y + rectangle2.height
         )
     }
 
@@ -675,6 +857,17 @@ window.addEventListener('DOMContentLoaded', () =>{
         }
     }
     decreaseTimer()
+
+    function toggleScreen(id, toggle){
+        let element = document.getElementById(id);
+        let display = ( toggle ) ? 'flex' : 'none';
+        element.style.display = display;
+    }
+
+    
+    function gameOver(){
+        
+    }
     
     function animate(){
         window.requestAnimationFrame(animate)
@@ -719,6 +912,9 @@ window.addEventListener('DOMContentLoaded', () =>{
 
         player.update();
         enemy.update();
+        // if(player.position.x < 0){
+        //     player.position.x = 0
+        // }
         
         player.velocity.x = 0
         player.velocity.y = 0
@@ -766,17 +962,34 @@ window.addEventListener('DOMContentLoaded', () =>{
         if(keys.d.pressed && lastKey === 'd'){
             player.velocity.x = 5
             player.switchSprite('run')
+            
         } else if (keys.a.pressed && lastKey === 'a'){
             player.velocity.x = -5
-            player.switchSprite('run')
+            // player.switchSprite('run')
+            player.switchSprite('run2')
         } else if (keys.s.pressed && lastKey === 's'){
             player.velocity.y = 13
-            player.switchSprite('run')
+            // player.switchSprite('run')
+              if(player.facingRight === true) {
+                player.switchSprite('run')
+            } else {
+                player.switchSprite('run2')
+            }
         } else if (keys.w.pressed && lastKey === 'w'){
             player.velocity.y = -13
-            player.switchSprite('run')
+            // player.switchSprite('run')
+            if(player.facingRight === true) {
+                player.switchSprite('run')
+            } else {
+                player.switchSprite('run2')
+            }
         } else {
-            player.switchSprite('idle')
+            // player.switchSprite('idle')
+            if(player.facingRight == true){
+                player.switchSprite('idle')
+            } else {
+                player.switchSprite('idle2')
+            }
         }
 
 
@@ -784,17 +997,36 @@ window.addEventListener('DOMContentLoaded', () =>{
         if (keys.ArrowRight.pressed && enemy.lastKey === "ArrowRight"){
             enemy.velocity.x = 5
             enemy.switchSprite('run')
+
         } else if (keys.ArrowLeft.pressed && enemy.lastKey === "ArrowLeft"){
             enemy.velocity.x = -5
-            enemy.switchSprite('run')
+            // enemy.switchSprite('run')
+            enemy.switchSprite('run2')
+
         } else if (keys.ArrowDown.pressed && enemy.lastKey === "ArrowDown"){
             enemy.velocity.y = 13
-            enemy.switchSprite('run')
+            // enemy.switchSprite('run')
+
+               if(enemy.facingRight === true) {
+                enemy.switchSprite('run')
+            } else {
+                enemy.switchSprite('run2')
+            }
         } else if (keys.ArrowUp.pressed && enemy.lastKey === "ArrowUp"){
             enemy.velocity.y = -13
-            enemy.switchSprite('run')
+            // enemy.switchSprite('run')
+               if(player.facingRight === true) {
+                enemy.switchSprite('run')
+            } else {
+                enemy.switchSprite('run2')
+            }
         } else {
-            enemy.switchSprite('idle')
+            // enemy.switchSprite('idle')
+              if(enemy.facingRight == true){
+                enemy.switchSprite('idle')
+            } else {
+                enemy.switchSprite('idle2')
+            }
         }
 
         
@@ -809,6 +1041,17 @@ window.addEventListener('DOMContentLoaded', () =>{
             document.querySelector('#enemyHealth').style.width = enemy.health + '%'
            
         }
+
+        if(
+            rectangularCollision2({
+                rectangle1: player,
+                rectangle2: enemy 
+            }) && player.isAttacking2){
+            player.isAttacking2 = false
+            enemy.health -= 10
+            document.querySelector('#enemyHealth').style.width = enemy.health + '%'
+           
+        }
       
 
         if(
@@ -817,6 +1060,16 @@ window.addEventListener('DOMContentLoaded', () =>{
                 rectangle2: player 
             }) && enemy.isAttacking){
             enemy.isAttacking = false
+            player.health -= 4
+            document.querySelector('#playerHealth').style.width = player.health + '%'
+           
+        }
+        if(
+            rectangularCollision2({
+                rectangle1: enemy,
+                rectangle2: player 
+            }) && enemy.isAttacking2){
+            enemy.isAttacking2 = false
             player.health -= 4
             document.querySelector('#playerHealth').style.width = player.health + '%'
            
@@ -847,6 +1100,7 @@ window.addEventListener('DOMContentLoaded', () =>{
         }
         switch( event.key){
             case 'd':
+                player.facingRight = true
                 keys.d.pressed = true
                 lastKey = 'd'
             break
@@ -854,6 +1108,7 @@ window.addEventListener('DOMContentLoaded', () =>{
 
         switch( event.key){
             case 'a':
+                player.facingRight = false
                 keys.a.pressed = true
                 lastKey = 'a'
             break
@@ -880,7 +1135,12 @@ window.addEventListener('DOMContentLoaded', () =>{
         }
         switch( event.key){
             case 'g':
-                player.attack()
+                // player.attack()
+                if(player.facingRight !== true){
+                    player.attack2()
+                } else {
+                    player.attack()
+                }
             break
         }
         switch( event.key){
@@ -905,6 +1165,7 @@ window.addEventListener('DOMContentLoaded', () =>{
 
         switch( event.key){
             case 'ArrowRight':
+                enemy.facingRight = true;
                 keys.ArrowRight.pressed = true
                 enemy.lastKey = 'ArrowRight'
             break
@@ -912,6 +1173,7 @@ window.addEventListener('DOMContentLoaded', () =>{
 
         switch( event.key){
             case 'ArrowLeft':
+                enemy.facingRight = false;
                 keys.ArrowLeft.pressed = true
                 enemy.lastKey = 'ArrowLeft'
             break
@@ -932,7 +1194,12 @@ window.addEventListener('DOMContentLoaded', () =>{
         }
         switch( event.key){
             case '.':
-                enemy.attack()
+                // enemy.attack2()
+                 if(enemy.facingRight !== true){
+                     enemy.attack2()
+                    } else {
+                    enemy.attack()
+                }
             break
         }
 
@@ -978,8 +1245,11 @@ window.addEventListener('DOMContentLoaded', () =>{
             break
         }
 
+
         console.log(event.key)
     })
+
+   
 })
 
 
