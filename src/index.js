@@ -54,7 +54,6 @@ document.addEventListener('DOMContentLoaded', () =>{
         player.position.y = 330;
         enemy.position.x = 924,
         enemy.position.y = 330;
-        
         // const instructions = document.getElementById('instructions')
         // document.getElementById('game-canvas').display = 'flex';
         
@@ -915,19 +914,19 @@ document.addEventListener('DOMContentLoaded', () =>{
         ctx.fillRect(0, 350, canvas.width, 325);
         rock1.update();
         ctx.fillStyle = "#916C18";
-        // ctx.fillRect(0, 370, canvas.width, 20);
-        // ctx.fillStyle = "#694A04";
-        // ctx.fillRect(0, 370, canvas.width, 2);
-        // ctx.fillStyle = "#F8D586";
-        // ctx.fillRect(0, 380, canvas.width, .4);
-        // ctx.fillStyle = "#694A04" ;
-        // ctx.fillRect(0, 390, canvas.width, 2);
-        // ctx.fillStyle = "#916C18";
-        // ctx.fillRect(0, 620, canvas.width, 30);
-        // ctx.fillStyle = "#694A04";
-        // ctx.fillRect(0, 620, canvas.width, 2);
-        // ctx.fillStyle = "#F8D586";
-        // ctx.fillRect(0, 635, canvas.width, .6);
+        ctx.fillRect(0, 370, canvas.width, 20);
+        ctx.fillStyle = "#694A04";
+        ctx.fillRect(0, 370, canvas.width, 2);
+        ctx.fillStyle = "#F8D586";
+        ctx.fillRect(0, 380, canvas.width, .4);
+        ctx.fillStyle = "#694A04" ;
+        ctx.fillRect(0, 390, canvas.width, 2);
+        ctx.fillStyle = "#916C18";
+        ctx.fillRect(0, 620, canvas.width, 30);
+        ctx.fillStyle = "#694A04";
+        ctx.fillRect(0, 620, canvas.width, 2);
+        ctx.fillStyle = "#F8D586";
+        ctx.fillRect(0, 635, canvas.width, .6);
         
         ctx.fillStyle = "#694A04";
         ctx.fillRect(0, 650, canvas.width, 2);
