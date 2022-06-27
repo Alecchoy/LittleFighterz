@@ -20,7 +20,10 @@ In addition, this project will include:
 
 Technologies, Libaries, APIs
 
-+ I will be using the Canvas API to render most of my functionality within the game.
++ I will be using the Canvas API to render most of my video layers and sprites.
++ I will webpack and babel to bundle and transpile the vanilla javscript.
++ Use Event listeners to track user input and translate them into actions for the charadter.
++ Used One Piece sprite library in order to get animations for each character.
 
 
 Wireframe 
