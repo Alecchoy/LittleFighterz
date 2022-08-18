@@ -948,6 +948,9 @@ document.addEventListener('DOMContentLoaded', () =>{
         
         ctx.fillStyle = "#694A04";
         ctx.fillRect(0, 650, canvas.width, 2);
+
+        ctx.fillStyle = "#F8D586";
+        ctx.fillRect(0, 700, canvas.width, 3);
         
         
         background.update();

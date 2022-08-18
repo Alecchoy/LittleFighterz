@@ -220,7 +220,7 @@ button {
 
 #close-instructions{
   margin-left: 820px;
-  margin-top: 220px;
+  // margin-top: -20px;
 }
 
 
@@ -365,6 +365,12 @@ p a:hover {
 //   height: 30px;
 // }
 
+#asda{
+  display: flex;
+  justify-content: space-evenly;
+  padding-top: 20px;
+
+}
 
 .imgconfig{
   display: flex;
@@ -373,19 +379,26 @@ p a:hover {
   height: 200px;
   justify-content: center;
   overflow: hidden;
-  margin-left: 80px;
+  margin-left: 90px;
 
 }
+
+#loofy{
+  // margin-left: 40px;
+}
 #luffyvszoro{
+  padding-right: 10px;
   // width: 80px;
 }
 
 .yo{
   display: flex;
   justify-content: center;
-  border: 1px black solid;
+  // border: 1px black solid;
   height: 260px;
-  padding: 50px;
+  padding-left: 50px;
+  padding-right: 50px;
+  margin-top: -50px;
 }
 
 

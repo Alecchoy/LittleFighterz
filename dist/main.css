@@ -164,7 +164,6 @@ button {
 
 #close-instructions {
   margin-left: 820px;
-  margin-top: 220px;
 }
 
 * {
@@ -304,6 +303,12 @@ p a:hover {
   text-shadow: 1px 1px 2px #427388;
 }
 
+#asda {
+  display: flex;
+  justify-content: space-evenly;
+  padding-top: 20px;
+}
+
 .imgconfig {
   display: flex;
   border: 3px black solid;
@@ -311,13 +316,18 @@ p a:hover {
   height: 200px;
   justify-content: center;
   overflow: hidden;
-  margin-left: 80px;
+  margin-left: 90px;
+}
+
+#luffyvszoro {
+  padding-right: 10px;
 }
 
 .yo {
   display: flex;
   justify-content: center;
-  border: 1px black solid;
   height: 260px;
-  padding: 50px;
+  padding-left: 50px;
+  padding-right: 50px;
+  margin-top: -50px;
 }
