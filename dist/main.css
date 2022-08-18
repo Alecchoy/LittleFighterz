@@ -47,13 +47,19 @@ body {
   list-style: none;
 }
 
-.wholecrew {
+#imgcontainer {
+  display: flex;
+  position: absolute;
+}
+
+#wholecrew {
   z-index: -1;
   display: flex;
   position: absolute;
   width: 1024px;
   height: 576px;
   margin-top: -150px;
+  margin-left: -512px;
 }
 
 #instructions {

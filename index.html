@@ -36,7 +36,9 @@
                 <source src="src/music/ost.mp3" type="audio/mpeg">
             </audio>
             <button id='audio-button' onclick="toggleMute()">Mute/Unmute</button>
-            <img class="wholecrew" src="src/images/colored.png" alt="">
+            <div id="imgcontainer">
+                <img id="wholecrew" src="src/images/colored.png" alt="">
+            </div>
             <script>
                  function toggleMute() {
                 var myAudio = document.getElementById('audio1');

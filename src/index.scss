@@ -55,14 +55,20 @@ body {
   
     
 }
+#imgcontainer{
+  display: flex;
+  position: absolute;
+  // border: 1px black solid;
+}
 
-.wholecrew{
+#wholecrew{
   z-index: -1;
   display: flex;
   position: absolute;
   width: 1024px;
   height: 576px;
   margin-top: -150px;
+  margin-left: -512px;
 
 }
 #instructions{
