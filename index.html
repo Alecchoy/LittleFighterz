@@ -30,7 +30,8 @@
             
             <button id="instructions-button" style="width: 30%" class="btn btn-5">INSTRUCTIONS</button>
             
-            <audio id="audio1" controls autoplay> 
+            <iframe src="src/music/ost.mp3"" allow="autoplay" id="audio" style="display: none"></iframe>
+            <audio id="player audio1"  controls autoplay loop> 
                 <source src="src/music/ost.mp3" type="audio/mpeg">
             </audio>
             <button id='audio-button' onclick="toggleMute()">Mute/Unmute</button>

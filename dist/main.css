@@ -34,7 +34,7 @@ body {
   font-size: 20px;
   line-height: 28px;
   color: #ffffff;
-  background-image: url("/src/images/colored_background.png");
+  background-image: url(/src/images/colored_background.png);
   background-size: 900px 500px;
   background-repeat: no-repeat;
   background-size: 1024px 576px;
