@@ -478,17 +478,17 @@ document.addEventListener('DOMContentLoaded', () =>{
 
   
 
-    const boaBg = new Sprite({
-        position: {
-            x: 200,
-            y: 260
-        },
-        imageSrc: './img/one_piece_sprites/boafinal.png',
-        scale: 1.5,
-        framesMax: 5.07
+    // const boaBg = new Sprite({
+    //     position: {
+    //         x: 200,
+    //         y: 260
+    //     },
+    //     imageSrc: './img/one_piece_sprites/boafinal.png',
+    //     scale: 1.5,
+    //     framesMax: 5.07
 
     
-    })
+    // })
 
     const background = new Background({
         position: {
@@ -944,7 +944,7 @@ document.addEventListener('DOMContentLoaded', () =>{
         cloud3.update();
         cloud6.update();
 
-        boaBg.update();
+        // boaBg.update();
 
 
         player.update();
