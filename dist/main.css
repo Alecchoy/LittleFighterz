@@ -34,7 +34,6 @@ body {
   font-size: 20px;
   line-height: 28px;
   color: #ffffff;
-  background-image: url("/src/images/colored_background.png");
   background-size: 900px 500px;
   background-repeat: no-repeat;
   background-size: 1024px 576px;
@@ -46,6 +45,15 @@ body {
 }
 #start-page ul {
   list-style: none;
+}
+
+.wholecrew {
+  z-index: -1;
+  display: flex;
+  position: absolute;
+  width: 1024px;
+  height: 576px;
+  margin-top: -150px;
 }
 
 #instructions {
