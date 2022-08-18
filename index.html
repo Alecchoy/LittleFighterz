@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="./dist/main.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <script src="https://kit.fontawesome.com/03abe323f9.js" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Raleway:ital,wght@1,900&display=swap" rel="stylesheet">
     <script src="./dist/main.js"></script>
     <title>OP Fighters</title>
@@ -36,14 +37,14 @@
             
             <!-- <iframe src="src/music/ost.mp3"" allow="autoplay" id="audio" style="display: none"></iframe> -->
          
-            <button id='audio-button' onclick="toggleMute()">Mute/Unmute</button>
+            <!-- <button id='audio-button' onclick="toggleMute()">Mute/Unmute</button>
             <script>
                  function toggleMute() {
                 var myAudio = document.getElementById('audio1');
                 myAudio.muted = !myAudio.muted;
      }
 
-            </script>
+            </script> -->
               <!-- <a id="github" href="https://github.com/Alecchoy/LittleFighterz" target=">blank"> -->
                 <!-- <img src="img/one_piece_sprites/github-logo.png" alt="git-hub-link" style="position: absolute; top: 10; right: 15; left: 0; bottom: 0; height:80px; padding-right: 20px;"> -->
             </a>
@@ -51,23 +52,43 @@
         </div>
 
         <div id="instructions" style="display: none">
-            <h2>How to Play</h2>
-            <h3>Welcome to One Piece Little Fighters</h3>
-            <div id="player-controls">
-                <ul>Player 1 Controllers
-                    <li>Please use 'W', 'A', 'S', 'D' to move up, down, left, right</li>
-                    <li>'F' is teleport</li>
-                    <li>'G' is basic attack</li>
-               
-                </ul>
+            <div>Welcome to One Piece Little Fighters</div>
+            <div>How to Play</div>
             
-                <ul >Player 2 Controllers
-                    <li>Please use 'Up', 'Down', 'Left', 'Right' to move up, down, left, right</li>
-                    <li>',' is teleport</li>
-                    <li>'.' is basic attack</li>
-              
-                </ul>
+            <div id="player-controls">
+                <div id="chick">
+                    <div class="imgconfig">
+                        <img id="luffyvszoro"src="/src/images/zoroooo.jpeg">
+
+                    </div class="imgconfig">
+                    Player 1 Controllers
+                    <ul class="yo">
+                        <li id="asd">1. Use "WASD" to move up, down, left, right</li>
+                        <li id="asd">2. 'F' is teleport</li>
+                        <li id="asd">3. 'G' is basic attack</li>
+                   
+                    </ul>
+
+                </div>
+                <div id="chick">
+                    <div class="imgconfig">
+                        <img id="luffyvszoro"src="/src/images/loffy.jpeg">
+
+                    </div>
+                    Player 2 Controllers
+                    <ul class="yo">
+                        <li>1. Use the arrow keys to move up, down, left, right</li>
+                        <li>2. ',' is teleport</li>
+                        <li>3. '.' is basic attack</li>
+                
+                    </ul>
+
+                </div>
             </div>
+            <!-- <div class="close-pos"> -->
+                <button id="close-instructions" style="width: 30%" class="btn btn-5">Close</button>
+
+            <!-- </div> -->
             <!-- <button id="exit">BUTTOn</button> -->
 
         </div>
@@ -149,9 +170,9 @@
                 <source src="src/music/ost.mp3" type="audio/mpeg">
             </audio> -->
             <audio id="player" src="src/music/ost.mp3"></audio>
-            <div> 
-            <div onclick="document.getElementById('player').play()">Play</div> 
-            <div onclick="document.getElementById('player').pause()">Pause</div> 
+            <div class="audiobut"> 
+            <div onclick="document.getElementById('player').play()"><i class="fa-solid fa-volume-high audiomarks"></i></div> 
+            <div onclick="document.getElementById('player').pause()"><i class="fa-solid fa-volume-xmark audiomarks"></i></div> 
             </div>
         </div>
           <!-- <a id="github" href="https://github.com/Alecchoy/LittleFighterz" target=">blank">

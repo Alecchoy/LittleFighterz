@@ -36,11 +36,16 @@ document.addEventListener('DOMContentLoaded', () =>{
     let muted = false;
     const button = document.getElementById('start-button');
     const instructions = document.getElementById("instructions-button");
+    const closeInstructions = document.getElementById("close-instructions");
     const replayButton = document.getElementById("replay-button");
-    const audioButton = document.getElementById("audio-button");
+    // const audioButton = document.getElementById("audio-button");
     instructions.addEventListener('click', (event) =>{
         document.getElementById('instructions').style.display = 'flex';
     })
+
+    closeInstructions.addEventListener('click', (event) =>{
+        document.getElementById('instructions').style.display = 'none';
+    } )
     // console.log('button')
     button.addEventListener('click', (event) =>{
         const startPage = document.getElementById('start-page');
@@ -60,17 +65,12 @@ document.addEventListener('DOMContentLoaded', () =>{
         // console.log('evnts')
     })
     
-    function toggleMute() {
-        var myAudio = document.getElementById('audio1');
-        myAudio.muted == !myAudio.muted;
-     }
+   
     replayButton.addEventListener('click', () =>{
         window.location.reload();
 
     })
-    audioButton.addEventListener('click', () =>{
-        toggleMute();
-    })
+   
     // button.addEventListener('click', (event) =>{
         
     //     // document.getElementById('game-canvas').display = 'flex';
