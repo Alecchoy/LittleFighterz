@@ -22,6 +22,9 @@
   <body>
       <div id="start-page">
           <!-- <embed  id="audio1" src="/music/One Piece OST - The Very Very Very Strongest [extended].mp3" type="" style="display: hidden"> -->
+            <div id="imgcontainer">
+                <img id="wholecrew" src="src/images/colored.png" alt="">
+            </div>
             <img src="src/images/title3.png" alt="">
             
             
@@ -36,9 +39,6 @@
                 <source src="src/music/ost.mp3" type="audio/mpeg">
             </audio>
             <button id='audio-button' onclick="toggleMute()">Mute/Unmute</button>
-            <div id="imgcontainer">
-                <img id="wholecrew" src="src/images/colored.png" alt="">
-            </div>
             <script>
                  function toggleMute() {
                 var myAudio = document.getElementById('audio1');
