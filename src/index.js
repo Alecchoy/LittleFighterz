@@ -24,8 +24,8 @@ document.addEventListener('DOMContentLoaded', () =>{
     //     enemy.position.y = 330;
     //     console.log('evnts')
     
-    canvas.width = 1024;
-    canvas.height = 576;
+    canvas.width = 1340;
+    canvas.height = 753;
 
     // myAudio = document.getElementById("audio1");
     
@@ -290,7 +290,25 @@ document.addEventListener('DOMContentLoaded', () =>{
             // ctx.fillRect(this.attackBox.position.x, this.attackBox.position.y, this.attackBox.width, this.attackBox.height)
             if(this.position.y + this.height + this.velocity.y >= canvas.height){
                 this.velocity.y = 0
+                this.position.y = canvas.height - 110
             }
+
+            if(this.position.y + this.velocity.y < 270){
+                this.velocity.y = 0
+                this.position.y = 270
+            }
+
+            if(this.position.x + this.velocity.x < 10){
+                this.velocity.x = 0
+                this.position.x = 10
+            }
+
+            if(this.position.x + this.width + this.velocity.x >= canvas.width - 40){
+                // this.velocity.x = 0 
+                this.position.x = canvas.width - 90
+            }
+
+        
             // if(this.isAttacking2){
                 this.attackBox2.position.x = this.position.x + this.attackBox2.offset.x
                 this.attackBox2.position.y = this.position.y + this.attackBox2.offset.y
@@ -628,7 +646,7 @@ document.addEventListener('DOMContentLoaded', () =>{
         },
         velocity: {
             x: 0,
-            y: 10
+            y: 1
         },
         offset: {
             x: 0,
@@ -879,7 +897,7 @@ document.addEventListener('DOMContentLoaded', () =>{
 
     }
 
-    let timer = 60
+    let timer = 999
     let timerId
     function decreaseTimer(){
         
@@ -908,8 +926,8 @@ document.addEventListener('DOMContentLoaded', () =>{
     
     function animate(){
         window.requestAnimationFrame(animate)
-        ctx.fillStyle ='#C4E3E7'
-        ctx.fillRect(0,0, canvas.width, canvas.height)
+        // ctx.fillStyle ='#C4E3E7'
+        // ctx.fillRect(0,0, canvas.width, canvas.height)
         ctx.fillStyle = "#5D8C92";
         ctx.fillRect(0, 350, canvas.width, 325);
         rock1.update();
@@ -1005,15 +1023,21 @@ document.addEventListener('DOMContentLoaded', () =>{
             // player.switchSprite('run')
             player.switchSprite('run2')
         } else if (keys.s.pressed && lastKey === 's'){
-            player.velocity.y = 13
+            player.velocity.y = 5
             // player.switchSprite('run')
               if(player.facingRight === true) {
                 player.switchSprite('run')
             } else {
                 player.switchSprite('run2')
             }
+
+            if(player.position.y + player.height + player.velocity.y > canvas.height){
+                player.switchSprite('idle')
+            }
+
+
         } else if (keys.w.pressed && lastKey === 'w'){
-            player.velocity.y = -13
+            player.velocity.y = -5
             // player.switchSprite('run')
             if(player.facingRight === true) {
                 player.switchSprite('run')
@@ -1178,6 +1202,7 @@ document.addEventListener('DOMContentLoaded', () =>{
                 } else {
                     player.attack()
                 }
+
             break
         }
         switch( event.key){

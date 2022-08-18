@@ -23,14 +23,13 @@ body {
   z-index: 3;
   position: absolute;
   justify-content: center;
-  width: 1024px;
-  height: 576px;
+  width: 1340px;
+  height: 650px;
   left: auto;
   right: auto;
   padding: 150px;
   margin: 0px;
   background-color: #162741;
-  box-shadow: 10px 10px 11px rgba(0, 0, 0, 0.25);
   font-size: 20px;
   line-height: 28px;
   color: #ffffff;
@@ -47,6 +46,28 @@ body {
   list-style: none;
 }
 
+.footer-tab {
+  position: absolute;
+  z-index: 99;
+  width: 1340px;
+  margin-top: 700px;
+  height: 53px;
+  background-color: #35475a;
+}
+
+.superpowers {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-left: 300px;
+  margin-right: 300px;
+}
+
+.linkss {
+  color: white;
+  text-decoration: none;
+}
+
 #imgcontainer {
   display: flex;
   position: absolute;
@@ -56,10 +77,10 @@ body {
   z-index: -1;
   display: flex;
   position: absolute;
-  width: 1024px;
-  height: 576px;
+  width: 1340px;
+  height: 753px;
   margin-top: -150px;
-  margin-left: -512px;
+  margin-left: -670px;
 }
 
 #instructions {

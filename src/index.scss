@@ -18,8 +18,8 @@ body {
     // align-content: center;
     // position: center;
     justify-content: center;
-    width: 1024px;
-    height: 576px; 
+    width: 1340px;
+    height: 650px; 
     // top: auto;
     left: auto;
     right: auto;
@@ -28,7 +28,7 @@ body {
     // background-image: linear-gradient(to top left, blue, green);
     background-color:#162741;
     
-    box-shadow: 10px 10px 11px rgba(0, 0, 0, 0.25);
+    // box-shadow: 10px 10px 11px rgba(0, 0, 0, 0.25);
     // border-radius: 20px;
     
     font-size: 20px;
@@ -55,6 +55,35 @@ body {
   
     
 }
+
+.footer-tab{
+  position: absolute;
+  z-index: 99;
+  // border: 1px black solid;
+  width: 1340px;
+  margin-top: 700px;
+  height: 53px;
+  // box-shadow: 0 0 11px rgba(0, 0, 0, 0.25);
+  background-color: #35475a;
+  
+}
+
+.superpowers{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-left: 300px;
+  margin-right: 300px;
+  // border-top: 2px black solid;
+
+}
+
+.linkss{
+  color: white;
+  text-decoration: none;
+}
+
+
 #imgcontainer{
   display: flex;
   position: absolute;
@@ -65,10 +94,10 @@ body {
   z-index: -1;
   display: flex;
   position: absolute;
-  width: 1024px;
-  height: 576px;
+  width: 1340px;
+  height: 753px;
   margin-top: -150px;
-  margin-left: -512px;
+  margin-left: -670px;
 
 }
 #instructions{

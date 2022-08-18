@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <link rel="shortcut icon" href="/images/favicon.ico">
+    <link rel="shortcut icon" href="/src/images/favicon.ico">
     <link rel="stylesheet" href="./dist/main.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -34,10 +34,8 @@
             
             <button id="instructions-button" style="width: 30%" class="btn btn-5">INSTRUCTIONS</button>
             
-            <iframe src="src/music/ost.mp3"" allow="autoplay" id="audio" style="display: none"></iframe>
-            <audio id="player audio1"  controls autoplay loop> 
-                <source src="src/music/ost.mp3" type="audio/mpeg">
-            </audio>
+            <!-- <iframe src="src/music/ost.mp3"" allow="autoplay" id="audio" style="display: none"></iframe> -->
+         
             <button id='audio-button' onclick="toggleMute()">Mute/Unmute</button>
             <script>
                  function toggleMute() {
@@ -127,12 +125,40 @@
       <!-- <script src="src/index.js"></script> -->
 
     </body>
-    <!-- <footer>
-          <a id="github" href="https://github.com/Alecchoy/LittleFighterz" target=">blank">
+    <footer class="footer-tab">
+        <div class="superpowers">
+            <div class="github-footer ider">
+                <a class="linkss" href="https://alecchoy.github.io/" target="_blank">Portfolio</a>
+            </div>
+            <div class="linkedin-footer ider">
+                <a class="linkss" href="https://www.linkedin.com/in/alec-choy-387aab13b/" target="_blank">LinkedIn</a>
+            </div>
+            <div class="github-footer ider">
+                <a class="linkss" href="https://github.com/Alecchoy" target="_blank">GitHub</a>
+            </div>
+            <div class="github-footer ider">
+                <a class="linkss" href="https://angel.co/u/alec-choy" target="_blank">AngelList</a>
+            </div>
+            <div class="github-footer ider">
+                <a class="linkss" href="https://meal-in.herokuapp.com/#/" target="_blank">MERN Project</a>
+            </div>
+            <div class="github-footer ider">
+                <a class="linkss" href="https://alecchoy.github.io/LittleFighterz/" target="_blank">Javascript Project</a>
+            </div>
+            <!-- <audio id="player audio1"  controls autoplay loop> 
+                <source src="src/music/ost.mp3" type="audio/mpeg">
+            </audio> -->
+            <audio id="player" src="src/music/ost.mp3"></audio>
+            <div> 
+            <div onclick="document.getElementById('player').play()">Play</div> 
+            <div onclick="document.getElementById('player').pause()">Pause</div> 
+            </div>
+        </div>
+          <!-- <a id="github" href="https://github.com/Alecchoy/LittleFighterz" target=">blank">
               <img src="img/one_piece_sprites/github-logo.png" alt="git-hub-link">
-          </a>
+          </a> -->
       
-    </footer> -->
+    </footer>
 
 </html>
 
