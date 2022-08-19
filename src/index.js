@@ -33,6 +33,17 @@ document.addEventListener('DOMContentLoaded', () =>{
     ctx.fillStyle = "#288BA8";
     ctx.fillRect(0,0, canvas.width, canvas.height);
    
+    const audioPlayer = document.getElementById('player');
+
+    let playing = false;
+
+    function toggleAudio(){
+        if
+     
+    }
+
+
+
     
     let muted = false;
     const button = document.getElementById('start-button');
