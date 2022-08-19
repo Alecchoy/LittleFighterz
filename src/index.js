@@ -32,6 +32,7 @@ document.addEventListener('DOMContentLoaded', () =>{
     
     ctx.fillStyle = "#288BA8";
     ctx.fillRect(0,0, canvas.width, canvas.height);
+   
     
     let muted = false;
     const button = document.getElementById('start-button');
@@ -289,9 +290,9 @@ document.addEventListener('DOMContentLoaded', () =>{
                 //  ctx.fillRect(this.attackBox.position.x, this.attackBox.position.y, this.attackBox.width, this.attackBox.height)
             // }
             // ctx.fillRect(this.attackBox.position.x, this.attackBox.position.y, this.attackBox.width, this.attackBox.height)
-            if(this.position.y + this.height + this.velocity.y >= canvas.height){
+            if(this.position.y + this.height + this.velocity.y >= canvas.height - 70){
                 this.velocity.y = 0
-                this.position.y = canvas.height - 110
+                this.position.y = canvas.height - 180
             }
 
             if(this.position.y + this.velocity.y < 270){
@@ -1149,6 +1150,14 @@ document.addEventListener('DOMContentLoaded', () =>{
     animate()
     movableArea.draw();
     let keysPressed = {}
+    
+    window.addEventListener("keydown", function(e) {
+        // space and arrow keys
+        if([32, 37, 38, 39, 40].indexOf(e.keyCode) > -1) {
+            e.preventDefault();
+        }
+    }, false);
+
     window.addEventListener('keydown', (event) =>{
 
 
