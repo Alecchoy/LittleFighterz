@@ -54,11 +54,12 @@ document.addEventListener('DOMContentLoaded', () =>{
         document.getElementById('instructions').style.display = 'none';
         // instructions.style.display = 'none';
         startPage.style.display = 'none';
-        timer = 60;
+        timer = 61;
         player.position.x = 50;
         player.position.y = 330;
         enemy.position.x = 924,
         enemy.position.y = 330;
+        decreaseTimer()
         // const instructions = document.getElementById('instructions')
         // document.getElementById('game-canvas').display = 'flex';
         
@@ -911,7 +912,7 @@ document.addEventListener('DOMContentLoaded', () =>{
             determineWinner({player, enemy, timerId })
         }
     }
-    decreaseTimer()
+
 
     function toggleScreen(id, toggle){
         let element = document.getElementById(id);
