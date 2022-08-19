@@ -1,8 +1,9 @@
 # One Piece Little Fighters
 
 
-One Piece Little Fighterz is a 2D fighter game where players can move on a canvas plane in order to attack, and dodge their opponent inspired by a modern epic named One Piece.
+<img src="https://github.com/Alecchoy/LittleFighterz/blob/main/src/images/onepiece.gif"/>
 
+### One Piece Little Fighterz is a 2D fighter game where players can move on a canvas plane in order to attack, and dodge their opponent inspired by a modern epic named One Piece.
 
 
 
@@ -52,13 +53,87 @@ Different characters will different ranges of abilities such as sword extenstion
 - Day8: Thursday
 
 
-##Future Bonus Features
+## Future Bonus Features
 - Add in 5-6 additional characters to choose from
 - Add different types of Attack
 - Create AI to fight back
 - Clear mobs of enemies
 
+## Example Code
 
+One of the core functionalities is making sure the when players are attacking each their, an overlap of two rectangles should not increase the damage since more parts of the rectangle are covering the enemy body. To counteract that, I made sure to write code that only registered the first time it over laps to count as damage.
+
+```jsx
+    function rectangularCollision({rectangle1, rectangle2}){
+        return (
+        rectangle1.attackBox.position.x + rectangle1.attackBox.width >= rectangle2.position.x && 
+        rectangle1.attackBox.position.x <= rectangle2.position.x + rectangle2.width && 
+        rectangle1.attackBox.position.y + rectangle1.attackBox.height >= rectangle2.position.y && 
+        rectangle1.attackBox.position.y <= rectangle2.position.y + rectangle2.height
+        )
+    }
+    function 
+```
+
+
+Another core functionality was making sure that sprites were cropped so that it would render smoothly and have these sprites animate throughout the entire gameplay. Through this project I understand how to crop sprites by frames and desigate frame sizes.
+
+
+```jsx
+class Sprite {
+        constructor({position, imageSrc, scale = 1, framesMax = 1, offset = { x: 0, y: 0 }  }){
+            this.position = position
+            this.width = 50
+            this.height = 100
+            this.image = new Image()
+            this.image.src = imageSrc
+            this.scale = scale
+            this.framesMax = framesMax
+            this.framesCurrent = 0
+            this.framesElapsed = 0
+            this.framesHold = 5
+            this.offset = offset
+    
+        }
+       
+
+        draw(){
+            // ctx.fillRect(this.position.x, this.position.y, this.width, this.height)
+            ctx.drawImage(
+                this.image, 
+                this.framesCurrent * (this.image.width/ this.framesMax),
+                0,
+                this.image.width / this.framesMax, 
+                this.image.height,
+                this.position.x - this.offset.x, 
+                this.position.y - this.offset.y,
+                (this.image.width / this.framesMax) * this.scale, 
+                this.image.height * this.scale
+                )
+        }
+
+        animateFrames(){
+
+            this.framesElapsed++
+                if(this.framesElapsed % this.framesHold === 0) {
+                    if(this.framesCurrent < this.framesMax - 1){
+                        this.framesCurrent++
+                    } else {
+                        this.framesCurrent = 0
+                    }
+    
+                }
+        }
+        
+
+        update(){
+            this.draw()
+            this.animateFrames()
+
+        }
+
+    }
+````
 
 
 
