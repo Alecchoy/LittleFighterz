@@ -100,7 +100,7 @@ body {
   z-index: -999;
 }
 
-#panels {
+.panels {
   width: 100%;
   z-index: -999;
   filter: blur(0.1rem);
