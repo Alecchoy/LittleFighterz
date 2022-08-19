@@ -35,12 +35,12 @@ document.addEventListener('DOMContentLoaded', () =>{
    
     const audioPlayer = document.getElementById('player');
 
-    let playing = false;
+    // let playing = false;
 
-    function toggleAudio(){
-        if
+    // function toggleAudio(){
+        
      
-    }
+    // }
 
 
 
