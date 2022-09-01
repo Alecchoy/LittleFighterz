@@ -2,12 +2,9 @@
 
 const { setTimeout } = require("core-js");
 
-// import {func} from './scripts/anotherJSfile';
 
 
-// func();
 
-// const startButton = document.getElementById('start-button')
 
 document.addEventListener('DOMContentLoaded', () =>{
     
@@ -15,33 +12,16 @@ document.addEventListener('DOMContentLoaded', () =>{
     const canvas = document.getElementById('game-canvas');
     const ctx = canvas.getContext('2d');
    
-    // const startPage = document.getElementById('start-page')
-    //     startPage.style.display = 'none';
-    //     timer = 60;
-    //     player.position.x = 50;
-    //     player.position.y = 330;
-    //     enemy.position.x = 924,
-    //     enemy.position.y = 330;
-    //     console.log('evnts')
-    
+
     canvas.width = 1340;
     canvas.height = 753;
 
-    // myAudio = document.getElementById("audio1");
-    
+
     
     ctx.fillStyle = "#288BA8";
     ctx.fillRect(0,0, canvas.width, canvas.height);
    
     const audioPlayer = document.getElementById('player');
-
-    // let playing = false;
-
-    // function toggleAudio(){
-        
-     
-    // }
-
 
 
     
@@ -50,7 +30,6 @@ document.addEventListener('DOMContentLoaded', () =>{
     const instructions = document.getElementById("instructions-button");
     const closeInstructions = document.getElementById("close-instructions");
     const replayButton = document.getElementById("replay-button");
-    // const audioButton = document.getElementById("audio-button");
     instructions.addEventListener('click', (event) =>{
         document.getElementById('instructions').style.display = 'flex';
     })
@@ -58,13 +37,10 @@ document.addEventListener('DOMContentLoaded', () =>{
     closeInstructions.addEventListener('click', (event) =>{
         document.getElementById('instructions').style.display = 'none';
     } )
-    // console.log('button')
     button.addEventListener('click', (event) =>{
         const startPage = document.getElementById('start-page');
-        // const instructions = document.getElementById('instructions');
         document.getElementById('game-canvas').style.display = 'flex';
         document.getElementById('instructions').style.display = 'none';
-        // instructions.style.display = 'none';
         startPage.style.display = 'none';
         timer = 61;
         player.position.x = 50;
@@ -72,10 +48,6 @@ document.addEventListener('DOMContentLoaded', () =>{
         enemy.position.x = 924,
         enemy.position.y = 330;
         decreaseTimer()
-        // const instructions = document.getElementById('instructions')
-        // document.getElementById('game-canvas').display = 'flex';
-        
-        // console.log('evnts')
     })
     
    
@@ -84,21 +56,7 @@ document.addEventListener('DOMContentLoaded', () =>{
 
     })
    
-    // button.addEventListener('click', (event) =>{
-        
-    //     // document.getElementById('game-canvas').display = 'flex';
-    //     instructions.style.display = 'flex';
-        
-    //     // console.log('evnts')
-    // })
-    // button.addEventListener('click', (event) =>{
-    //     const instructions = document.getElementById('exit')
-    //     // document.getElementById('game-canvas').display = 'flex';
-    //     instructions.style.display = 'none';
-        
-    //     // console.log('evnts')
-    // })
-    // const gravity = .2
+    
 
     ctx.fillStyle = "black";
     ctx.fillRect(1, 1, 1023, 2);
@@ -164,7 +122,6 @@ document.addEventListener('DOMContentLoaded', () =>{
        
 
         draw(){
-            // ctx.fillRect(this.position.x, this.position.y, this.width, this.height)
             ctx.drawImage(
                 this.image, 
                 this.framesCurrent * (this.image.width/ this.framesMax),
@@ -195,18 +152,11 @@ document.addEventListener('DOMContentLoaded', () =>{
         update(){
             this.draw()
             this.animateFrames()
-
         }
 
     }
     
-    
-    
-
-
-    //
-    //
-    //
+ 
     class Fighter extends Sprite {
         constructor({
             position, 
@@ -245,7 +195,6 @@ document.addEventListener('DOMContentLoaded', () =>{
                 offset: attackBox.offset,
                 width: attackBox.width,
                 height: attackBox.height
-                //add
                 
             }
             this.attackBox2 = {
@@ -256,7 +205,6 @@ document.addEventListener('DOMContentLoaded', () =>{
                 offset: attackBox2.offset,
                 width: attackBox2.width,
                 height: attackBox2.height
-                //add
                 
             }
             this.isAttacking
@@ -274,20 +222,6 @@ document.addEventListener('DOMContentLoaded', () =>{
 
         }
         
-       
-
-        // draw(){
-        //     ctx.fillStyle = this.color
-        //     ctx.fillRect(this.position.x, this.position.y, this.width, this.height)
-        //     //attack box is drawn
-            
-        //     if(this.isAttacking) {
-        //         ctx.fillStyle = "#B883E7"
-        //         ctx.fillRect(this.attackBox.position.x, this.attackBox.position.y, this.attackBox.width, this.attackBox.height)
-        //     } 
-       
-
-        // }
         
         
         update(){
@@ -295,12 +229,8 @@ document.addEventListener('DOMContentLoaded', () =>{
             this.animateFrames()
             this.position.x += this.velocity.x
             this.position.y += this.velocity.y
-            // if(this.isAttacking){
                 this.attackBox.position.x = this.position.x + this.attackBox.offset.x
                 this.attackBox.position.y = this.position.y + this.attackBox.offset.y
-                //  ctx.fillRect(this.attackBox.position.x, this.attackBox.position.y, this.attackBox.width, this.attackBox.height)
-            // }
-            // ctx.fillRect(this.attackBox.position.x, this.attackBox.position.y, this.attackBox.width, this.attackBox.height)
             if(this.position.y + this.height + this.velocity.y >= canvas.height - 70){
                 this.velocity.y = 0
                 this.position.y = canvas.height - 180
@@ -317,16 +247,12 @@ document.addEventListener('DOMContentLoaded', () =>{
             }
 
             if(this.position.x + this.width + this.velocity.x >= canvas.width - 40){
-                // this.velocity.x = 0 
                 this.position.x = canvas.width - 90
             }
 
         
-            // if(this.isAttacking2){
                 this.attackBox2.position.x = this.position.x + this.attackBox2.offset.x
                 this.attackBox2.position.y = this.position.y + this.attackBox2.offset.y
-                //  ctx.fillRect(this.attackBox2.position.x, this.attackBox2.position.y, this.attackBox2.width, this.attackBox2.height)
-            // }
         }
 
         attack(){
@@ -422,17 +348,6 @@ document.addEventListener('DOMContentLoaded', () =>{
 
             }
         }
-
-        // dashAttack(){
-        //     this.isAttacking = true
-        //     setTimeout(() =>{
-        //         this.isAttacking = false 
-        //     },300)
-        // }
-
-        
-
-        
     }
 
 
@@ -497,29 +412,9 @@ document.addEventListener('DOMContentLoaded', () =>{
             if(this.position.x < -1000){
                 this.position.x = 800
             }
-        }
-
-
-
-        
+        }        
     }
 
-
-
-
-  
-
-    // const boaBg = new Sprite({
-    //     position: {
-    //         x: 200,
-    //         y: 260
-    //     },
-    //     imageSrc: './img/one_piece_sprites/boafinal.png',
-    //     scale: 1.5,
-    //     framesMax: 5.07
-
-    
-    // })
 
     const background = new Background({
         position: {
@@ -636,22 +531,13 @@ document.addEventListener('DOMContentLoaded', () =>{
         },
         velocity:{
             x: -1.5,
-            // x: -.3,
             y: 0
         },
         imageSrc: './img/game_background_1/layers/clouds_2.png',
-        // scale: .5,
         scale: .9
 
     })
 
-    
-
-
-
-
-    
-    
     const player = new Fighter({
         position: {
             x: 0,
@@ -674,7 +560,6 @@ document.addEventListener('DOMContentLoaded', () =>{
         sprites: {
             idle: {
                 imageSrc: './img/one_piece_sprites/zoro_idle.png',
-                // scale:2,
                 framesMax: 4
             },
             run: {
@@ -739,7 +624,6 @@ document.addEventListener('DOMContentLoaded', () =>{
 
     const shoots = []
 
-    // player.draw();
     
     const enemy = new Fighter({
         position: {
@@ -756,7 +640,6 @@ document.addEventListener('DOMContentLoaded', () =>{
             y: 0
 
         },
-        // framesMax: 4,
         scale: 1.5,
         offset: {
             x: 5,
@@ -765,7 +648,6 @@ document.addEventListener('DOMContentLoaded', () =>{
         sprites: {
             idle: {
                 imageSrc: './img/one_piece_sprites/luffy_idle.png',
-                // scale:2,
                 framesMax: 3,
             },
             run: {
@@ -778,7 +660,6 @@ document.addEventListener('DOMContentLoaded', () =>{
             },
             idle2: {
                 imageSrc: './img/one_piece_sprites/luffy_flipped_idle.png',
-                // scale:2,
                 framesMax: 3
             },
             run2: {
@@ -813,7 +694,6 @@ document.addEventListener('DOMContentLoaded', () =>{
 
     enemy.draw();
     
-    // console.log(player);
 
     const keys ={
         a: {
@@ -851,17 +731,9 @@ document.addEventListener('DOMContentLoaded', () =>{
         }
     }
     function flipHorizontally(img,x,y){
-        // move to x + img's width
         ctx.translate(x+img.width,y);
-    
-        // scaleX by -1; this "trick" flips horizontally
         ctx.scale(-1,1);
-        
-        // draw the img
-        // no need for x,y since we've already translated
         ctx.drawImage(img,0,0);
-        
-        // always clean up -- reset transformations to default
         ctx.setTransform(1,0,0,1,0,0);
     }
 
@@ -898,14 +770,10 @@ document.addEventListener('DOMContentLoaded', () =>{
         document.querySelector('#displayText').style.display = "flex"
         if(player.health === enemy.health){
             document.querySelector('#displayText p').innerHTML = 'TIE GAME'
-            // document.getElementById('displayText').style.display = 'flex'
-            // console.log('tie')
         } else if(player.health > enemy.health){
             document.querySelector('#displayText p').innerHTML = "Player 1 Wins!"
-            // document.getElementById('displayText').style.display = 'flex'
         } else if(enemy.health > player.health){
             document.querySelector('#displayText p').innerHTML = "Player 2 Wins!"
-            // document.getElementById('displayText').style.display = 'flex'
         } 
 
     }
