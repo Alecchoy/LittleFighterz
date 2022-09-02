@@ -6,39 +6,24 @@ body {
     align-content: center;
 
 }
-// canvas {
-//     display: none
-// }
 .bannerpic{
   z-index: -1;
 }
 #start-page{
     z-index: 3;
     position: absolute;
-    // align-content: center;
-    // position: center;
     justify-content: center;
     width: 1340px;
     height: 650px; 
-    // top: auto;
     left: auto;
     right: auto;
     padding: 150px;
     margin: 0px;
-    // background-image: linear-gradient(to top left, blue, green);
     background-color:#162741;
-    
     box-shadow: 10px 10px 11px rgba(0, 0, 0, 0.25);
-    // border-radius: 20px;
-    
     font-size: 20px;
     line-height: 28px;
     color: #ffffff;
-    // background-image: url("/img/one_piece_sprites/startpage.png"),url("/img/one_piece_sprites/background2.png"),url("/img/one_piece_sprites/startpage.png"), url("/img/one_piece_sprites/startpage.png");
-    // background-size: 1000px 500px, 1000px 500px, 1000px 500px, 1000px 500px;
-    // background-repeat: no-repeat;
-    // background-size: 1024px 576px, 1027px 576px, 1023px 576px, 1022px 576px;
-
     background-size: 900px 500px;
     background-repeat: no-repeat;
     background-size: 1024px 576px;
@@ -60,11 +45,9 @@ body {
 
   position: absolute;
   z-index: 99;
-  // border: 1px black solid;
   width: 1340px;
   margin-top: 716px;
   height: 70px;
-  // box-shadow: 0 0 11px rgba(0, 0, 0, 0.25);
   background-color: #35475a;
   
 }
@@ -75,7 +58,6 @@ body {
   justify-content: space-between;
   margin-left: 300px;
   margin-right: 300px;
-  // border-top: 2px black solid;
 
 }
 .ider{
@@ -95,7 +77,6 @@ body {
 #imgcontainer{
   display: flex;
   position: absolute;
-  // border: 1px black solid;
 }
 
 #wholecrew{
@@ -111,13 +92,10 @@ body {
 
 .backgrounda{
   position: absolute;
-  // border: 1px black solid;
   width: 100%;
   height: 100%;
   display: flex;
   z-index: -999
-  // margin-top: -;
-  // margin-left: -20%;
 }
 .panels{
   width: 100%;
@@ -126,48 +104,19 @@ body {
   margin-top: -50px;
 }
 
-.instruc-pos{
-  
-}
-
-
 #instructions{
   display: flex;
   z-index: 3;
-  // align-content: center;
-  // position: relative;
   margin-top: 40px;
   margin-left: 150px;
-  // justify-content: center;
   width: 1032px;
   height: 576px; 
-  // top: auto;
-  // left: auto;
-  // right: 200px ;
-  // padding: 150px;
-  // padding-right: 100px;
-  // margin: 0px;
-  // background-image: linear-gradient(to top left, blue, green);
   background-color:rgba(51, 91, 128, 0.9);
-  
-  
   box-shadow: 10px 10px 11px rgba(0, 0, 0, 0.25);
-  // border-radius: 20px;
-  
   font-size: 16px;
   line-height: 28px;
-  // background-image: url("/img/one_piece_sprites/startpage.png"),url("/img/one_piece_sprites/background2.png"),url("/img/one_piece_sprites/startpage.png"), url("/img/one_piece_sprites/startpage.png");
-  // background-size: 1000px 500px, 1000px 500px, 1000px 500px, 1000px 500px;
-  // background-repeat: no-repeat;
-  // background-size: 1024px 576px, 1027px 576px, 1023px 576px, 1022px 576px;
-  
-  // background-size: 900px 500px;
-  // background-repeat: no-repeat;
-  // background-size: 1024px 576px;
-  // background-position: 0px 0px;
   color: #ffffff;
   flex-direction: column;
-  // justify-content: space-between;
   align-items: center;
   position: absolute;
   ;
@@ -187,33 +136,26 @@ body {
 }
 
 .audiomarks{
-  // border: 1px black solid;
   height: 53px;
   font-size: 20px;
   width: 60px;
   display: flex;
   justify-content: center;
   align-items: center;
-  // padding-left: 20px;
-  // padding-right: 20px;
 }
 .player-cos{
   width: 500px;
   height: 200px;
-  // border: 1px black solid;
   z-index: 999;
   display: flex;
   position: absolute;
   margin-left: 400px;
   margin-top: 500px;
    background-color: #35475a;
-  //  box-shadow: brown;
   box-shadow: 0px 0px 60px 60px #243551;
 }
 
 #replay-button{
-  // width: 100%;
-  // height: 100%;
   width: 100px;
   height: 60px;
   margin-top: 120px;

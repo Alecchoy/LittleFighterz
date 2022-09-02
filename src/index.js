@@ -807,8 +807,6 @@ document.addEventListener('DOMContentLoaded', () =>{
     
     function animate(){
         window.requestAnimationFrame(animate)
-        // ctx.fillStyle ='#C4E3E7'
-        // ctx.fillRect(0,0, canvas.width, canvas.height)
         ctx.fillStyle = "#5D8C92";
         ctx.fillRect(0, 350, canvas.width, 325);
         rock1.update();
@@ -842,18 +840,11 @@ document.addEventListener('DOMContentLoaded', () =>{
         cloud4.update();
         cloud7.update();
         cloud1.update();
-        // shoot.update()
         cloud3.update();
         cloud6.update();
 
-        // boaBg.update();
-
-
         player.update();
         enemy.update();
-        // if(player.position.x < 0){
-        //     player.position.x = 0
-        // }
         
         player.velocity.x = 0
         player.velocity.y = 0
@@ -884,31 +875,18 @@ document.addEventListener('DOMContentLoaded', () =>{
                    
                 }
             })
-            // 
-            // setTimeout(() => {
-            // shoot.velocity.x = 17;
         
-            // keys.h.pressed = false
                 
-            // }, 800);
         }
-        // if(shoot.position.x > canvas.width){
-        //     shoot.position.x = player.position.x
-        //     shoot.velocity.x = 0;
-        // }
-        // player.switchSprite('idle')
-        // player.image = player.sprites.idle.image
         if(keys.d.pressed && lastKey === 'd'){
             player.velocity.x = 5
             player.switchSprite('run')
             
         } else if (keys.a.pressed && lastKey === 'a'){
             player.velocity.x = -5
-            // player.switchSprite('run')
             player.switchSprite('run2')
         } else if (keys.s.pressed && lastKey === 's'){
             player.velocity.y = 5
-            // player.switchSprite('run')
               if(player.facingRight === true) {
                 player.switchSprite('run')
             } else {
@@ -922,14 +900,12 @@ document.addEventListener('DOMContentLoaded', () =>{
 
         } else if (keys.w.pressed && lastKey === 'w'){
             player.velocity.y = -5
-            // player.switchSprite('run')
             if(player.facingRight === true) {
                 player.switchSprite('run')
             } else {
                 player.switchSprite('run2')
             }
         } else {
-            // player.switchSprite('idle')
             if(player.facingRight == true){
                 player.switchSprite('idle')
             } else {
@@ -945,12 +921,10 @@ document.addEventListener('DOMContentLoaded', () =>{
 
         } else if (keys.ArrowLeft.pressed && enemy.lastKey === "ArrowLeft"){
             enemy.velocity.x = -5
-            // enemy.switchSprite('run')
             enemy.switchSprite('run2')
 
         } else if (keys.ArrowDown.pressed && enemy.lastKey === "ArrowDown"){
             enemy.velocity.y = 13
-            // enemy.switchSprite('run')
 
                if(enemy.facingRight === true) {
                 enemy.switchSprite('run')
@@ -959,14 +933,12 @@ document.addEventListener('DOMContentLoaded', () =>{
             }
         } else if (keys.ArrowUp.pressed && enemy.lastKey === "ArrowUp"){
             enemy.velocity.y = -13
-            // enemy.switchSprite('run')
                if(player.facingRight === true) {
                 enemy.switchSprite('run')
             } else {
                 enemy.switchSprite('run2')
             }
         } else {
-            // enemy.switchSprite('idle')
               if(enemy.facingRight == true){
                 enemy.switchSprite('idle')
             } else {
@@ -1031,7 +1003,6 @@ document.addEventListener('DOMContentLoaded', () =>{
     let keysPressed = {}
     
     window.addEventListener("keydown", function(e) {
-        // space and arrow keys
         if([32, 37, 38, 39, 40].indexOf(e.keyCode) > -1) {
             e.preventDefault();
         }
@@ -1088,7 +1059,6 @@ document.addEventListener('DOMContentLoaded', () =>{
         }
         switch( event.key){
             case 'g':
-                // player.attack()
                 if(player.facingRight !== true){
                     player.attack2()
                 } else {
@@ -1148,7 +1118,6 @@ document.addEventListener('DOMContentLoaded', () =>{
         }
         switch( event.key){
             case '.':
-                // enemy.attack2()
                  if(enemy.facingRight !== true){
                      enemy.attack2()
                     } else {
@@ -1157,7 +1126,6 @@ document.addEventListener('DOMContentLoaded', () =>{
             break
         }
 
-        // console.log(event.key)
     })
 
 
@@ -1200,7 +1168,6 @@ document.addEventListener('DOMContentLoaded', () =>{
         }
 
 
-        // console.log(event.key)
     })
 
    
