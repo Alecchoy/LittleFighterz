@@ -186,8 +186,6 @@ body {
 #player-controls{
   display: flex;
   flex-direction: row;
-  // justify-items: center;
-  // flex-wrap: wrap;
   justify-content: center;
   align-items: center;
   font-size: 20px;
@@ -203,11 +201,6 @@ body {
 }
 
 
-// li {
-//   display: flex;
-//   align-items: center;
-//   justify-content:space-between;
-// }
 
 ul{
   display: flex;
@@ -215,7 +208,6 @@ ul{
 }
 button {
     font-family: Raleway;
-    // padding: 300;
     font-size: large;
     color: white;
     background-color: rgba(0, 0, 0, 0.25);
@@ -226,7 +218,6 @@ button {
 
 #close-instructions{
   margin-left: 820px;
-  // margin-top: -20px;
 }
 
 
@@ -366,10 +357,6 @@ p a:hover {
   text-shadow: 1px 1px 2px #427388;
 }
 
-// #startpage a \{
-//   width: 30px;
-//   height: 30px;
-// }
 
 #asda{
   display: flex;
@@ -381,9 +368,6 @@ p a:hover {
 .game{
   display: flex;
   padding-top: 1%;
-  // height: 100%;
-  // justify-content: center;
-  // align-items: center;
 }
 
 .imgconfig{
@@ -397,30 +381,22 @@ p a:hover {
 
 }
 
-#loofy{
-  // margin-left: 40px;
-}
+
 #luffyvszoro{
   padding-right: 10px;
-  // width: 80px;
 }
 
 .yo{
   display: flex;
   justify-content: center;
-  // border: 1px black solid;
   height: 260px;
   padding-left: 50px;
   padding-right: 50px;
   margin-top: -50px;
 }
 
-// #game-canvas
-
-
 #canvas-pos{
   display: flex;
   justify-content: center;
   align-items: center;
-
 }
